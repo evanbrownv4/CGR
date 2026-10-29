@@ -1,0 +1,54 @@
+# param_large_low (BF = 32, MD = 1): a room lit only *indirectly*. An uplighter (area
+# light facing the ceiling) is hidden behind a screen, so the visible objects receive
+# almost all their light from a single diffuse bounce off the large white ceiling and
+# walls. One bounce captures most of this light (MD = 1 is enough), but the bounce must
+# be estimated over a large, softly lit area, which needs many branches to suppress noise.
+Scale -1 1 1
+LookAt 0 1.6 6.5   0 1.2 0   0 1 0
+Camera "perspective" "float fov" [50]
+Film "rgb" "integer xresolution" [480] "integer yresolution" [360] "string filename" "param_large_low.png"
+     "string tonemap" "reinhard" "float key" [0.18]
+Sampler "stratified" "integer xsamples" [2] "integer ysamples" [2]
+Integrator "distributed" "integer maxdepth" [1] "integer branching" [32]
+           "integer lightsamples" [4] "string lightsampler" "halton"
+WorldBegin
+# Uplighter: emits upwards (+y) towards the ceiling
+AttributeBegin
+  AreaLightSource "diffuse" "rgb L" [30 28 24]
+  Material "diffuse" "rgb reflectance" [0 0 0]
+  Shape "bilinearmesh" "point3 P" [-1 1.5 -2.4   -1 1.5 -1.4   1 1.5 -2.4   1 1.5 -1.4] "integer indices" [0 1 2 3]
+AttributeEnd
+# Screen hiding the light from the camera
+AttributeBegin
+  Translate 0 0.74 -1.3
+  Scale 2.4 1.5 0.06
+  Material "diffuse" "rgb reflectance" [0.5 0.45 0.4]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+Material "diffuse" "rgb reflectance" [0.8 0.8 0.8]
+Shape "plane" "point3 p" [0 3.2 0] "normal n" [0 -1 0]
+Shape "plane" "point3 p" [0 0 -3] "normal n" [0 0 1]
+Shape "plane" "point3 p" [-3.5 0 0] "normal n" [1 0 0]
+Shape "plane" "point3 p" [3.5 0 0] "normal n" [-1 0 0]
+Texture "wood" "spectrum" "imagemap" "string filename" "assets/wood.ppm" "float uscale" [0.5] "float vscale" [0.5]
+Material "diffuse" "texture reflectance" "wood"
+Shape "plane" "point3 p" [0 0 0] "normal n" [0 1 0]
+AttributeBegin
+  Translate -1.6 0.6 0.8
+  Material "phong" "rgb Kd" [0.7 0.2 0.15] "rgb Ks" [0.15 0.15 0.15] "float exponent" [30]
+  Shape "sphere" "float radius" [0.6]
+AttributeEnd
+AttributeBegin
+  Translate 1.4 0 0.6
+  Rotate -30 0 1 0
+  Scale 0.6 0.6 0.6
+  Material "phong" "rgb Kd" [0.65 0.7 0.78] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60]
+  Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true
+AttributeEnd
+AttributeBegin
+  Translate 0 0.5 1.4
+  Rotate 90 1 0 0
+  Scale 0.45 0.45 0.45
+  Material "diffuse" "rgb reflectance" [0.3 0.6 0.35]
+  Shape "objmesh" "string filename" "assets/knot.obj" "bool smooth" true
+AttributeEnd

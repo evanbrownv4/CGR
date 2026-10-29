@@ -1,0 +1,31 @@
+General: C++17, standard library only; vector/matrix/transform maths, PCG32 RNG, PNG/PPM/PFM writers and PPM/PFM readers implemented from scratch
+General: PBRT-v4 scene subset parser (transforms, attribute stack, Include/Import, named materials, textures, object instancing)
+General: integrator selected by the scene file (Integrator "whitted" or "distributed")
+General: output image and .log file written to the output/ folder; executable built as output/CGR26_renderer
+General: logging of syntax errors, unsupported features, unused parameters, missing files and out-of-range values with file:line, without crashing
+General: profiling in the log (parse, BVH build, render, tone mapping/output timings; ray counts and Mrays/s)
+General: multithreaded rendering (std::thread, row-based work distribution)
+General: BVH acceleration structure (binned SAH) with an option to disable it (--nobvh / Accelerator "none")
+General: image comparison tool (--compare: RMSE, per-channel RMSE, PSNR, region RMSE, per-pixel values, difference image)
+WSRT: specular reflection (recursive ideal mirror reflection up to the maximum ray-tree depth)
+WSRT: specular refraction through dielectrics (Snell's law, exact Fresnel equations, total internal reflection)
+WSRT: Blinn-Phong shading (ambient, diffuse, specular) with Kd/Ks/exponent/Ka per material in the scene file
+WSRT: point light sources with configurable position and intensity (plus distant lights and a constant background)
+WSRT: shadow rays towards every light, with a scale-relative ray offset to avoid self-shadowing
+WSRT: UV-mapped textures (PPM image maps and procedural checkerboard) on spheres, planes, triangles and meshes
+WSRT: geometry: planes, spheres, discs and individual triangles, all with ray intersection and uv generation
+WSRT: area lights approximated as point lights at their centroid (warning logged)
+DRT: triangle meshes loaded from OBJ files (standard library parser) with per-vertex normals (smooth shading) and uvs
+DRT: textures on meshes using interpolated uv coordinates
+DRT: area lights (quads, discs, spheres, arbitrary meshes) with soft shadows; configurable number of shadow rays per light
+DRT: energy-conserving modified Phong BRDF (cosine-weighted diffuse term + normalised specular lobe, Kd+Ks normalised to <= 1)
+DRT: thin-lens camera with depth of field (aperture radius "lensradius" and "focaldistance" in the scene file)
+DRT: Reinhard tone mapping (luminance or per-channel, configurable key value and white point, log-average luminance)
+DRT: indirect illumination with configurable branching factor and maximum depth (uniform or cosine hemisphere sampling)
+DRT: ideal specular reflection/refraction (mirror, glass) in the DRT
+Camera: perspective (PBRT fov convention) and orthographic projections with configurable screen window
+Camera: configurable field of view
+Antialiasing: supersampling with n x n regular-grid, jittered-stratified, uniform random or Halton pixel samples, box-filter average
+Sampler comparison: uniform random, regular grid (cell centres) and Halton (bases 2,3, optional Cranley-Patterson rotation) area light sampling
+Sampler comparison: high-sample stratified reference render and RMSE evaluation of linear (PFM) images
+DRT parameter study: branching factor (BF) and maximum depth (MD) configurable per scene; four study scenes provided

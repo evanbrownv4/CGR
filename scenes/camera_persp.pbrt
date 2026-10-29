@@ -1,0 +1,15 @@
+# camera_persp: perspective view down the colonnade. Projection x_s = x_c / (z_c tan(fov/2)):
+# the division by depth makes distant columns smaller and the two rows converge to a
+# vanishing point, giving strong depth cues -> the preferable projection here.
+Scale -1 1 1
+LookAt 0 7 7   0 0.5 -14   0 1 0
+Camera "perspective" "float fov" [55]
+Film "rgb" "integer xresolution" [720] "integer yresolution" [480] "string filename" "camera_persp.png"
+Sampler "stratified" "integer xsamples" [2] "integer ysamples" [2] "bool jitter" false
+Integrator "whitted" "integer maxdepth" [3] "rgb ambient" [0.12 0.12 0.12]
+WorldBegin
+LightSource "point" "point3 from" [0 3.2 2] "rgb I" [20 18 15]
+LightSource "point" "point3 from" [0 3.2 -15] "rgb I" [25 22 18]
+LightSource "distant" "point3 from" [-2 6 3] "point3 to" [0 0 0] "rgb L" [0.6 0.6 0.6]
+LightSource "infinite" "rgb L" [0.5 0.6 0.8]
+Include "include/colonnade_geometry.pbrt"

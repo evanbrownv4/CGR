@@ -1,0 +1,246 @@
+# Shared geometry for camera_persp*: a long colonnade (two rows of 12 columns,
+# 3 units apart) on a checker floor receding from the viewer. Perspective
+# foreshortening (distant columns appear smaller, parallel rows converge to a
+# vanishing point) is what conveys the depth of this scene.
+Texture "chk" "spectrum" "checkerboard" "float uscale" [0.5] "float vscale" [0.5] "rgb tex1" [0.8 0.78 0.72] "rgb tex2" [0.3 0.28 0.25]
+Material "diffuse" "texture reflectance" "chk"
+Shape "plane" "point3 p" [0 0 0] "normal n" [0 1 0]
+Material "phong" "rgb Kd" [0.85 0.82 0.75] "rgb Ks" [0.15 0.15 0.15] "float exponent" [30]
+AttributeBegin
+  Translate -2.5 1.5 0
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2.5 3.2 0
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate 2.5 1.5 0
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2.5 3.2 0
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate -2.5 1.5 -3
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2.5 3.2 -3
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate 2.5 1.5 -3
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2.5 3.2 -3
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate -2.5 1.5 -6
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2.5 3.2 -6
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate 2.5 1.5 -6
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2.5 3.2 -6
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate -2.5 1.5 -9
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2.5 3.2 -9
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate 2.5 1.5 -9
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2.5 3.2 -9
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate -2.5 1.5 -12
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2.5 3.2 -12
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate 2.5 1.5 -12
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2.5 3.2 -12
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate -2.5 1.5 -15
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2.5 3.2 -15
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate 2.5 1.5 -15
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2.5 3.2 -15
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate -2.5 1.5 -18
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2.5 3.2 -18
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate 2.5 1.5 -18
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2.5 3.2 -18
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate -2.5 1.5 -21
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2.5 3.2 -21
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate 2.5 1.5 -21
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2.5 3.2 -21
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate -2.5 1.5 -24
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2.5 3.2 -24
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate 2.5 1.5 -24
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2.5 3.2 -24
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate -2.5 1.5 -27
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2.5 3.2 -27
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate 2.5 1.5 -27
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2.5 3.2 -27
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate -2.5 1.5 -30
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2.5 3.2 -30
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate 2.5 1.5 -30
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2.5 3.2 -30
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate -2.5 1.5 -33
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2.5 3.2 -33
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+AttributeBegin
+  Translate 2.5 1.5 -33
+  Scale 0.5 3 0.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2.5 3.2 -33
+  Shape "sphere" "float radius" [0.35]
+AttributeEnd
+# Beams on top of each row
+AttributeBegin
+  Translate -2.5 3.6 -16.5
+  Scale 0.6 0.2 34.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2.5 3.6 -16.5
+  Scale 0.6 0.2 34.5
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+# A red sphere in the middle of the corridor (same size as the blue one far away)
+AttributeBegin
+  Translate 0 0.6 -3
+  Material "phong" "rgb Kd" [0.75 0.1 0.08] "rgb Ks" [0.4 0.4 0.4] "float exponent" [60]
+  Shape "sphere" "float radius" [0.6]
+AttributeEnd
+AttributeBegin
+  Translate 0 0.6 -24
+  Material "phong" "rgb Kd" [0.1 0.2 0.75] "rgb Ks" [0.4 0.4 0.4] "float exponent" [60]
+  Shape "sphere" "float radius" [0.6]
+AttributeEnd

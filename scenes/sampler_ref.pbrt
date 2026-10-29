@@ -1,0 +1,12 @@
+# sampler_ref: converged reference for the sampler comparison: 4096 jittered
+# stratified (64 x 64) light samples per shading point, same scene and pixel sampling.
+Scale -1 1 1
+LookAt 0 3.2 6.5   0 0.6 0   0 1 0
+Camera "perspective" "float fov" [42]
+Film "rgb" "integer xresolution" [480] "integer yresolution" [360] "string filename" "sampler_ref.png"
+     "string tonemap" "clamp" "bool writehdr" true
+Sampler "stratified" "integer xsamples" [1] "integer ysamples" [1] "bool jitter" false
+Integrator "distributed" "integer maxdepth" [0] "integer branching" [0]
+           "integer lightsamples" [4096] "string lightsampler" "stratified"
+WorldBegin
+Include "include/sampler_geometry.pbrt"

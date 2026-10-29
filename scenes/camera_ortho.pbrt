@@ -1,0 +1,16 @@
+# camera_ortho: orthographic (isometric) view of the block grid. Rays are parallel
+# (direction +z in camera space, origin varies over the screen window), so
+# projection is x_s = x_c, y_s = y_c: no division by depth. Equal blocks have equal
+# size anywhere in the image and parallel edges remain parallel -> the preferable
+# projection for this "technical drawing" scene.
+Scale -1 1 1
+LookAt 14 12 14   0 0.8 0   0 1 0
+Camera "orthographic" "float screenwindow" [-9 9 -6 6]
+Film "rgb" "integer xresolution" [720] "integer yresolution" [480] "string filename" "camera_ortho.png"
+Sampler "stratified" "integer xsamples" [2] "integer ysamples" [2] "bool jitter" false
+Integrator "whitted" "integer maxdepth" [3] "rgb ambient" [0.15 0.15 0.15]
+WorldBegin
+LightSource "distant" "point3 from" [3 10 5] "point3 to" [0 0 0] "rgb L" [1.0 0.97 0.9]
+LightSource "point" "point3 from" [-8 6 6] "rgb I" [25 27 32]
+LightSource "infinite" "rgb L" [0.6 0.7 0.85]
+Include "include/blocks_geometry.pbrt"

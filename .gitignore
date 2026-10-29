@@ -1,0 +1,6 @@
+# build artefacts
+build/
+output/*
+!output/.gitkeep
+*.o
+.DS_Store

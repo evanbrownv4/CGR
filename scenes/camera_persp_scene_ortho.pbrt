@@ -1,0 +1,16 @@
+# camera_persp_scene_ortho: the colonnade seen through an orthographic camera from
+# the same viewpoint. Without the division by depth all columns project to the same
+# size and overlap exactly; the far blue sphere looks identical in size to the near
+# red one and the depth of the corridor is lost.
+Scale -1 1 1
+LookAt 0 7 7   0 0.5 -14   0 1 0
+Camera "orthographic" "float screenwindow" [-10.5 10.5 -7 7]
+Film "rgb" "integer xresolution" [720] "integer yresolution" [480] "string filename" "camera_persp_scene_ortho.png"
+Sampler "stratified" "integer xsamples" [2] "integer ysamples" [2] "bool jitter" false
+Integrator "whitted" "integer maxdepth" [3] "rgb ambient" [0.12 0.12 0.12]
+WorldBegin
+LightSource "point" "point3 from" [0 3.2 2] "rgb I" [20 18 15]
+LightSource "point" "point3 from" [0 3.2 -15] "rgb I" [25 22 18]
+LightSource "distant" "point3 from" [-2 6 3] "point3 to" [0 0 0] "rgb L" [0.6 0.6 0.6]
+LightSource "infinite" "rgb L" [0.5 0.6 0.8]
+Include "include/colonnade_geometry.pbrt"

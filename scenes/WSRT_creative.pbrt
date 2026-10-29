@@ -1,0 +1,15 @@
+# WSRT_creative: a study desk lit by a desk lamp (warm point light) and a cool
+# window fill light. Shows recursive reflection (mirror, metal sculpture, mug glaze),
+# refraction through the glass paperweight, Blinn-Phong highlights, hard shadows,
+# textures (wood, marble, globe) and triangle meshes rendered with the WSRT.
+Scale -1 1 1
+LookAt 0 1.7 4.6   0 0.45 -0.4   0 1 0
+Camera "perspective" "float fov" [45]
+Film "rgb" "integer xresolution" [960] "integer yresolution" [640] "string filename" "WSRT_creative.png"
+Sampler "stratified" "integer xsamples" [3] "integer ysamples" [3] "bool jitter" false
+Integrator "whitted" "integer maxdepth" [8] "rgb ambient" [0.1 0.1 0.11]
+WorldBegin
+LightSource "point" "point3 from" [-1.8 3.0 1.2] "rgb I" [9 7.5 5]
+LightSource "point" "point3 from" [4 4 4] "rgb I" [5 6 8]
+LightSource "infinite" "rgb L" [0.55 0.6 0.7]
+Include "include/desk_geometry.pbrt"

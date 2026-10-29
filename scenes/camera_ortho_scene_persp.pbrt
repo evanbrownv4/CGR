@@ -1,0 +1,14 @@
+# camera_ortho_scene_persp: the same block grid seen through a perspective camera
+# from a closer viewpoint (fov 60). Near blocks look much larger than far ones and
+# vertical/horizontal edges converge, so block heights can no longer be compared.
+Scale -1 1 1
+LookAt 7 6 7   0 0.8 0   0 1 0
+Camera "perspective" "float fov" [60]
+Film "rgb" "integer xresolution" [720] "integer yresolution" [480] "string filename" "camera_ortho_scene_persp.png"
+Sampler "stratified" "integer xsamples" [2] "integer ysamples" [2] "bool jitter" false
+Integrator "whitted" "integer maxdepth" [3] "rgb ambient" [0.15 0.15 0.15]
+WorldBegin
+LightSource "distant" "point3 from" [3 10 5] "point3 to" [0 0 0] "rgb L" [1.0 0.97 0.9]
+LightSource "point" "point3 from" [-8 6 6] "rgb I" [25 27 32]
+LightSource "infinite" "rgb L" [0.6 0.7 0.85]
+Include "include/blocks_geometry.pbrt"

@@ -1,0 +1,30 @@
+# DRT_creative: the same study desk lit by a large window (rectangular area
+# light, left) and a small desk-lamp disc light. Soft shadows, glossy Phong
+# reflections, colour bleeding (1 indirect bounce), depth of field focused on
+# the mug, textured OBJ meshes and Reinhard tone mapping.
+Scale -1 1 1
+LookAt 0 1.7 4.6   0 0.45 -0.4   0 1 0
+Camera "perspective" "float fov" [45] "float lensradius" [0.06] "float focaldistance" [4.6]
+Film "rgb" "integer xresolution" [960] "integer yresolution" [640] "string filename" "DRT_creative.png"
+     "string tonemap" "reinhard" "float key" [0.2]
+Sampler "stratified" "integer xsamples" [4] "integer ysamples" [4]
+Integrator "distributed" "integer maxdepth" [2] "integer branching" [2]
+           "integer lightsamples" [9] "string lightsampler" "halton"
+WorldBegin
+# Window on the left (faces +x)
+AttributeBegin
+  AreaLightSource "diffuse" "rgb L" [5 5.5 6.5]
+  Material "diffuse" "rgb reflectance" [0 0 0]
+  Shape "bilinearmesh" "point3 P" [-4.5 0.8 1.5   -4.5 0.8 -2.5   -4.5 3.6 1.5   -4.5 3.6 -2.5]
+        "integer indices" [0 1 2 3]
+AttributeEnd
+# Desk lamp: small warm disc facing down
+AttributeBegin
+  Translate -1.4 2.6 0.6
+  Rotate 90 1 0 0
+  AreaLightSource "diffuse" "rgb L" [60 45 25]
+  Material "diffuse" "rgb reflectance" [0 0 0]
+  Shape "disk" "float radius" [0.12]
+AttributeEnd
+LightSource "infinite" "rgb L" [0.05 0.06 0.08]
+Include "include/desk_geometry.pbrt"

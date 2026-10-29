@@ -1,0 +1,157 @@
+# Shared geometry for camera_ortho*: a 5x5 grid of equally spaced blocks with
+# heights 0.5..2.5 on a 1-unit checker floor (a 'model city' / technical drawing).
+# In an orthographic (isometric) view all blocks keep their true relative size and
+# all parallel edges stay parallel, so heights and spacings can be compared directly.
+Texture "chk" "spectrum" "checkerboard" "float uscale" [1] "float vscale" [1] "rgb tex1" [0.8 0.8 0.8] "rgb tex2" [0.55 0.55 0.6]
+Material "diffuse" "texture reflectance" "chk"
+Shape "plane" "point3 p" [0 0 0] "normal n" [0 1 0]
+AttributeBegin
+  Translate -4 0.250 -4
+  Scale 1 0.500 1
+  Material "phong" "rgb Kd" [0.8 0.3 0.25] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -4 0.750 -2
+  Scale 1 1.500 1
+  Material "phong" "rgb Kd" [0.85 0.75 0.3] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -4 1.250 0
+  Scale 1 2.500 1
+  Material "phong" "rgb Kd" [0.7 0.7 0.75] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -4 0.500 2
+  Scale 1 1.000 1
+  Material "phong" "rgb Kd" [0.25 0.5 0.8] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -4 1.000 4
+  Scale 1 2.000 1
+  Material "phong" "rgb Kd" [0.35 0.7 0.4] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2 1.000 -4
+  Scale 1 2.000 1
+  Material "phong" "rgb Kd" [0.25 0.5 0.8] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2 0.250 -2
+  Scale 1 0.500 1
+  Material "phong" "rgb Kd" [0.35 0.7 0.4] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2 0.750 0
+  Scale 1 1.500 1
+  Material "phong" "rgb Kd" [0.8 0.3 0.25] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2 1.250 2
+  Scale 1 2.500 1
+  Material "phong" "rgb Kd" [0.85 0.75 0.3] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate -2 0.500 4
+  Scale 1 1.000 1
+  Material "phong" "rgb Kd" [0.7 0.7 0.75] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 0 0.500 -4
+  Scale 1 1.000 1
+  Material "phong" "rgb Kd" [0.85 0.75 0.3] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 0 1.000 -2
+  Scale 1 2.000 1
+  Material "phong" "rgb Kd" [0.7 0.7 0.75] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 0 0.250 0
+  Scale 1 0.500 1
+  Material "phong" "rgb Kd" [0.25 0.5 0.8] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 0 0.750 2
+  Scale 1 1.500 1
+  Material "phong" "rgb Kd" [0.35 0.7 0.4] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 0 1.250 4
+  Scale 1 2.500 1
+  Material "phong" "rgb Kd" [0.8 0.3 0.25] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2 1.250 -4
+  Scale 1 2.500 1
+  Material "phong" "rgb Kd" [0.35 0.7 0.4] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2 0.500 -2
+  Scale 1 1.000 1
+  Material "phong" "rgb Kd" [0.8 0.3 0.25] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2 1.000 0
+  Scale 1 2.000 1
+  Material "phong" "rgb Kd" [0.85 0.75 0.3] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2 0.250 2
+  Scale 1 0.500 1
+  Material "phong" "rgb Kd" [0.7 0.7 0.75] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 2 0.750 4
+  Scale 1 1.500 1
+  Material "phong" "rgb Kd" [0.25 0.5 0.8] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 4 0.750 -4
+  Scale 1 1.500 1
+  Material "phong" "rgb Kd" [0.7 0.7 0.75] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 4 1.250 -2
+  Scale 1 2.500 1
+  Material "phong" "rgb Kd" [0.25 0.5 0.8] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 4 0.500 0
+  Scale 1 1.000 1
+  Material "phong" "rgb Kd" [0.35 0.7 0.4] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 4 1.000 2
+  Scale 1 2.000 1
+  Material "phong" "rgb Kd" [0.8 0.3 0.25] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 4 0.250 4
+  Scale 1 0.500 1
+  Material "phong" "rgb Kd" [0.85 0.75 0.3] "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
