@@ -1,0 +1,14 @@
+# camera_fov1: field of view 25 degrees (PBRT convention: fov spans the shorter
+# image axis, here the vertical one). Camera position and orientation are the same
+# for camera_fov1/2/3. Expected look: narrow (telephoto-like): little perspective distortion, objects appear large, rows look compressed in depth.
+Scale -1 1 1
+LookAt 0 2.2 7   0 1 -4   0 1 0
+Camera "perspective" "float fov" [25]
+Film "rgb" "integer xresolution" [720] "integer yresolution" [480] "string filename" "camera_fov1.png"
+Sampler "stratified" "integer xsamples" [2] "integer ysamples" [2] "bool jitter" false
+Integrator "whitted" "integer maxdepth" [3] "rgb ambient" [0.12 0.12 0.12]
+WorldBegin
+LightSource "point" "point3 from" [0 8 8] "rgb I" [90 90 90]
+LightSource "distant" "point3 from" [2 5 4] "point3 to" [0 0 0] "rgb L" [0.5 0.5 0.5]
+LightSource "infinite" "rgb L" [0.5 0.6 0.8]
+Include "include/fov_geometry.pbrt"

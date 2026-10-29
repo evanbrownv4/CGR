@@ -1,0 +1,77 @@
+# WSRT_simple: demonstrates every Whitted-style ray tracer feature.
+#  - specular reflection : mirror sphere (left) reflecting the scene, recursive up to maxdepth
+#  - specular refraction : glass sphere (right, eta 1.5) incl. Fresnel + total internal reflection
+#  - Blinn-Phong shading : red (exponent 120) and blue (exponent 8) spheres, per-material Kd/Ks/exponent/Ka
+#  - point lights        : a warm key light and a cool fill light (configurable position + intensity)
+#  - shadows             : two hard shadows per object (one per light), ray offset avoids acne
+#  - textures            : checkerboard floor (procedural), brick wall (PPM), planet sphere (PPM), uv grid triangle (PPM)
+#  - geometry            : planes, spheres and an individual triangle, each with uv coordinates
+Scale -1 1 1
+LookAt 0 3.2 10   0 1.2 0   0 1 0
+Camera "perspective" "float fov" [38]
+Film "rgb" "integer xresolution" [800] "integer yresolution" [600] "string filename" "WSRT_simple.png"
+Sampler "stratified" "integer xsamples" [2] "integer ysamples" [2] "bool jitter" false
+Integrator "whitted" "integer maxdepth" [6] "rgb ambient" [0.08 0.08 0.08]
+WorldBegin
+
+LightSource "point" "point3 from" [4 7 6] "rgb I" [55 50 42]
+LightSource "point" "point3 from" [-6 5 3] "rgb I" [12 14 20]
+# Constant sky colour seen by rays that leave the scene
+LightSource "infinite" "rgb L" [0.45 0.55 0.75]
+
+# Floor: procedural checkerboard (1 unit squares)
+Texture "floorchk" "spectrum" "checkerboard" "float uscale" [1] "float vscale" [1]
+        "rgb tex1" [0.85 0.85 0.85] "rgb tex2" [0.15 0.15 0.18]
+Material "phong" "texture Kd" "floorchk" "rgb Ks" [0.1 0.1 0.1] "float exponent" [20]
+Shape "plane" "point3 p" [0 0 0] "normal n" [0 1 0]
+
+# Back wall: brick image texture, repeated every 2 units
+Texture "brick" "spectrum" "imagemap" "string filename" "assets/brick.ppm" "float uscale" [0.5] "float vscale" [0.5]
+Material "diffuse" "texture reflectance" "brick"
+Shape "plane" "point3 p" [0 0 -6] "normal n" [0 0 1]
+
+# Mirror sphere
+AttributeBegin
+  Translate -2.6 1 0
+  Material "mirror" "rgb Kr" [0.9 0.9 0.9]
+  Shape "sphere" "float radius" [1]
+AttributeEnd
+
+# Shiny red Blinn-Phong sphere
+AttributeBegin
+  Translate 0 1 -0.5
+  Material "phong" "rgb Kd" [0.7 0.08 0.06] "rgb Ks" [0.6 0.6 0.6] "float exponent" [120] "rgb Ka" [0.7 0.08 0.06]
+  Shape "sphere" "float radius" [1]
+AttributeEnd
+
+# Glass sphere (refraction, Fresnel, total internal reflection)
+AttributeBegin
+  Translate 2.4 1 1.2
+  Material "dielectric" "float eta" [1.5]
+  Shape "sphere" "float radius" [1]
+AttributeEnd
+
+# Rough-looking blue sphere (low exponent -> broad highlight)
+AttributeBegin
+  Translate 1.6 0.6 -2.6
+  Material "phong" "rgb Kd" [0.1 0.2 0.7] "rgb Ks" [0.3 0.3 0.3] "float exponent" [8]
+  Shape "sphere" "float radius" [0.6]
+AttributeEnd
+
+# Textured planet sphere
+AttributeBegin
+  Translate -0.9 0.7 -3.4
+  Rotate -90 1 0 0
+  Texture "planet" "spectrum" "imagemap" "string filename" "assets/planet.ppm"
+  Material "phong" "texture Kd" "planet" "rgb Ks" [0.25 0.25 0.25] "float exponent" [60]
+  Shape "sphere" "float radius" [0.7]
+AttributeEnd
+
+# A single textured triangle (uv grid shows the interpolated uv coordinates)
+AttributeBegin
+  Texture "uvgrid" "spectrum" "imagemap" "string filename" "assets/uvgrid.ppm"
+  Material "diffuse" "texture reflectance" "uvgrid"
+  Shape "trianglemesh" "integer indices" [0 1 2]
+        "point3 P" [-5.2 0 -4.5   -2.2 0 -4.5   -3.7 2.8 -4.5]
+        "point2 uv" [0 0  1 0  0.5 1]
+AttributeEnd

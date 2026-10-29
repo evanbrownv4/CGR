@@ -1,0 +1,14 @@
+# sampler_halton64: soft shadows with 64 shadow rays per shading point, halton light
+# sampling: first N points of the 2D Halton sequence (bases 2, 3) with a per-shading-point random toroidal shift (Cranley-Patterson rotation). 1 centred pixel sample, direct lighting only (maxdepth 0).
+# Linear radiance is also written to sampler_halton64.pfm for RMSE against sampler_ref.pfm:
+#   output/CGR26_renderer --compare output/sampler_ref.pfm output/sampler_halton64.pfm
+Scale -1 1 1
+LookAt 0 3.2 6.5   0 0.6 0   0 1 0
+Camera "perspective" "float fov" [42]
+Film "rgb" "integer xresolution" [480] "integer yresolution" [360] "string filename" "sampler_halton64.png"
+     "string tonemap" "clamp" "bool writehdr" true
+Sampler "stratified" "integer xsamples" [1] "integer ysamples" [1] "bool jitter" false
+Integrator "distributed" "integer maxdepth" [0] "integer branching" [0]
+           "integer lightsamples" [64] "string lightsampler" "halton"
+WorldBegin
+Include "include/sampler_geometry.pbrt"

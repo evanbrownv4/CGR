@@ -1,0 +1,38 @@
+# Shared geometry for sampler_*: a white floor and back wall lit only by one large
+# 2.5 x 1.5 rectangular area light (no indirect light, maxdepth 0) so that all noise
+# comes from the light-sampling strategy. Objects with different penumbra widths:
+# a sphere resting on the floor (wide penumbra), a thin tall pole (narrow shadow,
+# long penumbra), a cube close to the floor (sharp contact shadow) and a torus.
+Material "diffuse" "rgb reflectance" [0.75 0.75 0.75]
+Shape "plane" "point3 p" [0 0 0] "normal n" [0 1 0]
+Shape "plane" "point3 p" [0 0 -3] "normal n" [0 0 1]
+AttributeBegin
+  AreaLightSource "diffuse" "rgb L" [6 6 6]
+  Material "diffuse" "rgb reflectance" [0 0 0]
+  Shape "bilinearmesh" "point3 P" [-1.25 3.5 -0.25   1.25 3.5 -0.25   -1.25 3.5 1.25   1.25 3.5 1.25]
+        "integer indices" [0 1 2 3]
+AttributeEnd
+AttributeBegin
+  Translate -1.6 0.7 0.3
+  Material "diffuse" "rgb reflectance" [0.7 0.25 0.2]
+  Shape "sphere" "float radius" [0.7]
+AttributeEnd
+AttributeBegin
+  Translate 0.2 1.0 -0.6
+  Scale 0.08 2.0 0.08
+  Material "diffuse" "rgb reflectance" [0.2 0.3 0.7]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 1.6 0.35 0.6
+  Rotate 30 0 1 0
+  Scale 0.7 0.7 0.7
+  Material "diffuse" "rgb reflectance" [0.25 0.6 0.3]
+  Shape "objmesh" "string filename" "assets/cube.obj"
+AttributeEnd
+AttributeBegin
+  Translate 0.3 0.35 1.4
+  Scale 0.5 0.5 0.5
+  Material "diffuse" "rgb reflectance" [0.8 0.7 0.2]
+  Shape "objmesh" "string filename" "assets/torus.obj"
+AttributeEnd

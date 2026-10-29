@@ -1,0 +1,72 @@
+# DRT_simple: demonstrates every distributed ray tracer feature.
+#  - triangle meshes      : torus.obj (per-vertex normals + uvs, smooth shaded) and
+#                           lowpoly_sphere.obj (no normals -> flat shaded) loaded from OBJ
+#  - textures             : uv-grid PPM mapped onto the torus via interpolated uvs, wood floor
+#  - area light + soft shadows : 1.6 x 1.6 emissive quad, 16 shadow rays per shading point
+#  - Phong BRDF           : energy-conserving modified Phong (kd/pi + ks (n+2)/2pi cos^n),
+#                           glossy gold sphere (n=80) vs. diffuse spheres
+#  - depth of field       : thin lens, aperture radius 0.12, focused on the torus (distance 8.0)
+#  - Reinhard tone mapping: luminance-based, key 0.18, configurable white point
+Scale -1 1 1
+LookAt 0 2.6 8   0 1 0   0 1 0
+Camera "perspective" "float fov" [40] "float lensradius" [0.12] "float focaldistance" [8.0]
+Film "rgb" "integer xresolution" [640] "integer yresolution" [480] "string filename" "DRT_simple.png"
+     "string tonemap" "reinhard" "string tonemapmode" "luminance" "float key" [0.18] "float whitepoint" [3.0]
+Sampler "stratified" "integer xsamples" [4] "integer ysamples" [4] "bool jitter" true
+Integrator "distributed" "integer maxdepth" [2] "integer branching" [3]
+           "integer lightsamples" [16] "string lightsampler" "halton"
+WorldBegin
+
+# Overhead rectangular area light (emits downwards)
+AttributeBegin
+  AreaLightSource "diffuse" "rgb L" [12 11 10]
+  Material "diffuse" "rgb reflectance" [0 0 0]
+  Shape "bilinearmesh" "point3 P" [-0.8 5 -0.8   0.8 5 -0.8   -0.8 5 0.8   0.8 5 0.8]
+        "integer indices" [0 1 2 3]
+AttributeEnd
+LightSource "infinite" "rgb L" [0.08 0.09 0.12]
+
+# Wooden floor and a light grey back wall
+Texture "wood" "spectrum" "imagemap" "string filename" "assets/wood.ppm" "float uscale" [0.25] "float vscale" [0.25]
+Material "diffuse" "texture reflectance" "wood"
+Shape "plane" "point3 p" [0 0 0] "normal n" [0 1 0]
+Material "diffuse" "rgb reflectance" [0.6 0.6 0.6]
+Shape "plane" "point3 p" [0 0 -4] "normal n" [0 0 1]
+
+# Textured torus mesh (in focus)
+AttributeBegin
+  Translate 0 0.7 0
+  Rotate 30 1 0 0
+  Texture "uvgrid" "spectrum" "imagemap" "string filename" "assets/uvgrid.ppm" "float uscale" [4]
+  Material "diffuse" "texture reflectance" "uvgrid"
+  Shape "objmesh" "string filename" "assets/torus.obj"
+AttributeEnd
+
+# Flat-shaded low-poly sphere (no normals in the OBJ) - roughly in the focal plane
+AttributeBegin
+  Translate -2.3 0.8 -0.6
+  Scale 0.8 0.8 0.8
+  Material "diffuse" "rgb reflectance" [0.2 0.45 0.7]
+  Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj"
+AttributeEnd
+
+# Glossy Phong sphere (gold-ish) - out of focus, in front
+AttributeBegin
+  Translate 2.0 0.6 2.0
+  Material "phong" "rgb Kd" [0.15 0.1 0.02] "rgb Ks" [0.75 0.6 0.25] "float exponent" [80]
+  Shape "sphere" "float radius" [0.6]
+AttributeEnd
+
+# Diffuse sphere with a broad specular lobe
+AttributeBegin
+  Translate 2.4 0.7 -1.8
+  Material "phong" "rgb Kd" [0.6 0.1 0.1] "rgb Ks" [0.3 0.3 0.3] "float exponent" [10]
+  Shape "sphere" "float radius" [0.7]
+AttributeEnd
+
+# Glass sphere
+AttributeBegin
+  Translate -1.6 0.5 1.6
+  Material "dielectric" "float eta" [1.5]
+  Shape "sphere" "float radius" [0.5]
+AttributeEnd
