@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{CG:R Report 2}
+\author{Evan Brown}
+\date{October 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Camera models}
+% Orthographic vs perspective projection: Derive and explain the mathematical difference between the two projection models.
+% Show the effect on rendered images using scenes where the distinction is clearly visible.
+% Design a scene for which orthographic projection is the more appropriate choice and one scene for which perspective projection is preferable.
+% Justify your choices using rendered views from these scenes.
+% TODO: Required output images: camera_ortho, camera_persp
+\subsection{Orthographic vs perspective projection}
+\subsubsection{Derivations and comparison}
+\subsubsection{Orthographic and perspective scenes}
+
+% Field of view: Demonstrate the effect of varying the (horizontal or vertical) field-of-view angle in perspective projection.
+% Render images of a scene with three distinct field-of-view values.
+% Using these, explain the relationship between field of view and the apparent size and the types of distortion of objects specific to the images you show.
+% Use arrows or zoomed insets to focus on those regions.
+% TODO: Required output images: camera_fov1, camera_fov2, camera_fov3
+\subsection{Field of view}
+
+\section{Antialiasing}
+
+% Demonstrating aliasing: Produce renders from both the WSRT and DRT that exhibit visible aliasing artefacts such as jagged edges, Moire patterns, or sharp boundary stepping.
+% Choose scenes and camera configurations that make the aliasing obvious.
+% aa_wsrt, aa_drt
+\subsection{Demonstrating aliasing}
+
+% Supersampling antialiasing: Implement antialiasing by casting multiple rays per pixel and averaging the results.
+% Show renders with 1, 4, 9, and 16 samples per pixel or equivalent.
+% Discuss the trade-off between image quality and render time.
+% aa_ss1, aa_ss4, aa_ss9, aa_ss16
+\subsection{Supersampling antialiasing}
+
+% Performance and alternatives: Quantify the render time increase as a function of samples per pixel. Suggest and briefly describe at least one technique, for example adaptive sampling or post-process filtering, that could reduce this cost. You are not required to implement the alternative.
+\subsection{Performance and alternatives}
+
+\section{Sampler comparison}
+% Within the DRT, compare the following sampling strategies for soft shadows produced by area lights.
+% • Uniform random sampling: Samples drawn independently and uniformly at random over the light surface.
+% • Regular grid sampling: The light surface is divided into an n by n grid and one sample is placed at the centre of each cell.
+% • Halton sequence sampling: Low-discrepancy samples generated using the Halton sequence in two dimensions.
+% For each strategy, produce renders of the same scene at the same total sample count.
+% Quantitatively compare the three strategies using a metric of your choice, for example RMSE (or variance) against a high-sample-count PBRT reference image measured at specific pixels.
+% Discuss the conditions under which each strategy is preferable.
+
+% Output images sampler_unif, sampler_grid, sampler_halton.
+% Use suffixes as the number of samples used.
+% Point to specific regions in the image that are discussed (using arrows or insets)
+
+\section{DRT parameter study}
+% The distributed ray tracer is governed by two principal parameters: the branching factor (BF), which is the number of rays cast at each scattering event, and the maximum depth (MD), which is the maximum number of recursive ray-tree levels. Explain how you chose appropriate values for BF and MD for a given scene, and what the cost of increasing each parameter is. Design four scenes, one well-suited to each of the following parameter combinations, and show the resulting renders with discussion.
+% • Small BF, low MD: Few samples, shallow recursion.
+% • Small BF, high MD: Few samples, deep recursion.
+% • Large BF, low MD: Many samples, shallow recursion.
+% • Large BF, high MD: Many samples, deep recursion.
+% The scenes should be designed so that the rendered output meaningfully reflects the parameter setting. For example, a scene with many inter-reflections is well-suited to exploring the effect of MD, while a scene with large softly lit surfaces benefits from a large BF.
+% Output images param_small_low, param_small_high, param_large_low, param_large_high. Use non-trivial geometries in the scene and point to specific regions in the image that are discussed (using arrows or zoomed insets).
+
+
+\end{document}
