@@ -1,0 +1,33 @@
+{
+  "name": "test13",
+  "category": "shading",
+  "title": "Dielectric refraction",
+  "description": "A glass sphere (eta 1.5) in front of a checkerboard wall lit by an area light (PBRT maxdepth 6). Pixels seen through the sphere check refraction directions and Fresnel weighting. Pixels inside the caustic are avoided, because the CGR26 DRT does not render caustics by default.",
+  "scene": "testscene_13.pbrt",
+  "ref_spp": 8192,
+  "radius": 2,
+  "rel_tol": 0.08,
+  "abs_tol": 0.015,
+  "pixels": [
+    {
+      "x": 26,
+      "y": 26,
+      "label": "checker wall, direct view"
+    },
+    {
+      "x": 89,
+      "y": 56,
+      "label": "wall seen through the glass sphere"
+    },
+    {
+      "x": 75,
+      "y": 56,
+      "label": "wall seen through the glass (upper)"
+    },
+    {
+      "x": 29,
+      "y": 112,
+      "label": "floor, lit"
+    }
+  ]
+}

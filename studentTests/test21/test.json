@@ -1,0 +1,11 @@
+{
+  "name": "test21",
+  "category": "error",
+  "title": "Out-of-range parameter: negative radius",
+  "description": "A sphere with a negative radius.",
+  "scene": "testscene_21.pbrt",
+  "keywords": [
+    "radius"
+  ],
+  "line": 12
+}

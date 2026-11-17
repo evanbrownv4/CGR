@@ -1,0 +1,11 @@
+{
+  "name": "test15",
+  "category": "error",
+  "title": "Unknown shape type",
+  "description": "Shape \"cube\" is not a PBRT shape. The shape must be reported and skipped.",
+  "scene": "testscene_15.pbrt",
+  "keywords": [
+    "cube"
+  ],
+  "line": 12
+}

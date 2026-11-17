@@ -1,0 +1,8 @@
+{
+  "name": "test7",
+  "category": "camera",
+  "title": "Surface orientation of one-sided emitters",
+  "description": "One-sided emissive discs: the left (red) disc faces the camera and must be visible; the right (green) disc is identical but under ReverseOrientation, so it emits away from the camera and must render black. The tilted blue disc checks the disc transform.",
+  "scene": "testscene_7.pbrt",
+  "max_mismatch_percent": 0.25
+}

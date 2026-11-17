@@ -1,0 +1,27 @@
+# testscene_7 (camera): Surface orientation of one-sided emitters
+# One-sided emissive discs: the left (red) disc faces the camera and must be visible; the right (green) disc is identical but under ReverseOrientation, so it emits away from the camera and must render black. The tilted blue disc checks the disc transform.
+LookAt 0 0 8   0 0 0   0 1 0
+Camera "perspective" "float fov" [40]
+Film "rgb" "integer xresolution" [200] "integer yresolution" [150] "string filename" "testsuite_ref_7.pfm"
+Sampler "stratified" "integer xsamples" [1] "integer ysamples" [1] "bool jitter" false
+PixelFilter "box"
+Integrator "path" "integer maxdepth" [1]
+WorldBegin
+Material "diffuse" "rgb reflectance" [0 0 0]
+AttributeBegin
+  Translate -2.2 0 0
+  AreaLightSource "diffuse" "rgb L" [1 0 0]
+  Shape "disk" "float radius" [1]
+AttributeEnd
+AttributeBegin
+  Translate 2.2 0 0
+  ReverseOrientation
+  AreaLightSource "diffuse" "rgb L" [0 1 0]
+  Shape "disk" "float radius" [1]
+AttributeEnd
+AttributeBegin
+  Translate 0 1.5 0
+  Rotate 50 1 0 0
+  AreaLightSource "diffuse" "rgb L" [0 0 1]
+  Shape "disk" "float radius" [0.8]
+AttributeEnd

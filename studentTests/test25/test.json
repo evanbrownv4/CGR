@@ -1,0 +1,11 @@
+{
+  "name": "test25",
+  "category": "error",
+  "title": "Wrong number of parameter values",
+  "description": "\"rgb reflectance\" with only two values.",
+  "scene": "testscene_25.pbrt",
+  "keywords": [
+    "reflectance"
+  ],
+  "line": 12
+}

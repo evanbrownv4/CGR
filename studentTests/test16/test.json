@@ -1,0 +1,11 @@
+{
+  "name": "test16",
+  "category": "error",
+  "title": "Malformed transform",
+  "description": "Translate with only two numbers.",
+  "scene": "testscene_16.pbrt",
+  "keywords": [
+    "Translate"
+  ],
+  "line": 12
+}

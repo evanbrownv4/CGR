@@ -1,0 +1,38 @@
+{
+  "name": "test8",
+  "category": "shading",
+  "title": "Lambertian BRDF under a point light",
+  "description": "Grey diffuse sphere on a grey floor lit by one point light, direct lighting only (PBRT maxdepth 1). Expected radiance is reflectance/pi * I cos(theta) / d^2: checks BRDF normalisation, inverse-square falloff and the hard shadow.",
+  "scene": "testscene_8.pbrt",
+  "ref_spp": 8192,
+  "radius": 2,
+  "rel_tol": 0.06,
+  "abs_tol": 0.005,
+  "pixels": [
+    {
+      "x": 73,
+      "y": 36,
+      "label": "sphere, upper lit area"
+    },
+    {
+      "x": 69,
+      "y": 57,
+      "label": "sphere, near the terminator"
+    },
+    {
+      "x": 23,
+      "y": 107,
+      "label": "floor, lit"
+    },
+    {
+      "x": 97,
+      "y": 67,
+      "label": "floor, in hard shadow"
+    },
+    {
+      "x": 139,
+      "y": 62,
+      "label": "floor, far right"
+    }
+  ]
+}

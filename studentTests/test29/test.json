@@ -1,0 +1,11 @@
+{
+  "name": "test29",
+  "category": "error",
+  "title": "Undefined named material",
+  "description": "NamedMaterial refers to a material that was never defined.",
+  "scene": "testscene_29.pbrt",
+  "keywords": [
+    "nosuchmaterial"
+  ],
+  "line": 12
+}

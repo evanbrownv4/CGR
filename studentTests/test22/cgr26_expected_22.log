@@ -1,0 +1,12 @@
+[INFO]    scene file: testscene_22.pbrt
+[INFO]    testscene_22.pbrt:5: .pfm output requested: writing linear PFM plus a tone-mapped PNG
+[INFO]    testscene_22.pbrt:7: PBRT integrator "path" emulated by the distributed ray tracer (branching 1, 1 light sample, maxdepth - 1)
+[ERROR]   testscene_22.pbrt:4: fov 200.000000 out of range (0, 180); using 90
+[INFO]    camera: perspective, fov 90.000000, lens radius 0.000000, focal distance 1000000.000000
+[INFO]    scene: 1 primitives (0 meshes), 1 point, 0 distant, 0 area light(s)
+[INFO]    BVH: 1 bounded primitives, 1 nodes, 1 leaves, depth 1
+[INFO]    integrator: distributed, maxdepth 0, branching 1, light samples 1 (uniform), hemisphere uniform
+[INFO]    film: 64x48, 4 sample(s) per pixel (uniform)
+[INFO]    tone mapping: Reinhard (luminance), key 0.1800, log-average luminance 0.0000, white point 23097.5001 (auto = max)
+[WARNING] render completed with 1 error(s); see messages above
+[SUMMARY] 1 warning(s), 1 error(s)

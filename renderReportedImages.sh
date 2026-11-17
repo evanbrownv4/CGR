@@ -38,5 +38,36 @@ if [ -f output/sampler_ref.pfm ] && { [ -z "$filter" ] || [[ "sampler_" == *"$fi
     cat "$summary"
 fi
 
+# Acceleration structure benchmark: each acc_* scene with and without the BVH at the
+# same resolution. acc_complex is benchmarked at a reduced resolution because brute
+# force on ~280k triangles takes far too long at full size.
+if [ -z "$filter" ] || [[ "$filter" == acc* ]]; then
+    table=output/acc_timings.txt
+    {
+        echo "Acceleration benchmark (render time only, $(nproc) threads)"
+        printf "%-12s %-10s %10s %12s %12s %9s %14s %14s\n" scene resolution primitives "BVH (s)" "brute (s)" speedup "tests/ray BVH" "tests/ray brute"
+    } > "$table"
+    for spec in "acc_best 480 360" "acc_worst 480 360" "acc_complex 64 40"; do
+        set -- $spec
+        scene=$1; w=$2; h=$3
+        [ -f "scenes/$scene.pbrt" ] || continue
+        echo "== Benchmarking $scene (${w}x${h}) =="
+        for mode in bvh brute; do
+            extra=""; [ "$mode" = brute ] && extra="--nobvh"
+            output/CGR26_renderer "scenes/$scene.pbrt" --quiet --resolution "$w" "$h" --output "${scene}_bench_$mode" $extra
+        done
+        get() { sed -n "$2" "output/${scene}_bench_$1.log" | head -1; }
+        prims=$(get bvh 's/.*scene: \([0-9]*\) primitives.*/\1/p')
+        tb=$(get bvh 's/.*render: \([0-9.]*\) s.*/\1/p')
+        tf=$(get brute 's/.*render: \([0-9.]*\) s.*/\1/p')
+        pb=$(get bvh 's/.*tests (\([0-9.]*\) per ray).*/\1/p')
+        pf=$(get brute 's/.*tests (\([0-9.]*\) per ray).*/\1/p')
+        speed=$(awk -v a="$tf" -v b="$tb" 'BEGIN { if (b > 0) printf "%.2fx", a / b; else print "-" }')
+        printf "%-12s %-10s %10s %12s %12s %9s %14s %14s\n" "$scene" "${w}x${h}" "$prims" "$tb" "$tf" "$speed" "$pb" "$pf" >> "$table"
+    done
+    echo "== Acceleration benchmark ($table) =="
+    cat "$table"
+fi
+
 echo "== Done in $(( $(date +%s) - start )) s, $failed failure(s) =="
 exit $failed

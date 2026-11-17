@@ -1,0 +1,12 @@
+[INFO]    scene file: testscene_29.pbrt
+[INFO]    testscene_29.pbrt:5: .pfm output requested: writing linear PFM plus a tone-mapped PNG
+[INFO]    testscene_29.pbrt:7: PBRT integrator "path" emulated by the distributed ray tracer (branching 1, 1 light sample, maxdepth - 1)
+[ERROR]   testscene_29.pbrt:12: undefined named material "nosuchmaterial"; keeping current material
+[INFO]    camera: perspective, fov 40.000000, lens radius 0.000000, focal distance 1000000.000000
+[INFO]    scene: 2 primitives (0 meshes), 1 point, 0 distant, 0 area light(s)
+[INFO]    BVH: 2 bounded primitives, 1 nodes, 1 leaves, depth 1
+[INFO]    integrator: distributed, maxdepth 0, branching 1, light samples 1 (uniform), hemisphere uniform
+[INFO]    film: 64x48, 4 sample(s) per pixel (uniform)
+[INFO]    tone mapping: Reinhard (luminance), key 0.1800, log-average luminance 0.0000, white point 5644.2261 (auto = max)
+[WARNING] render completed with 1 error(s); see messages above
+[SUMMARY] 1 warning(s), 1 error(s)

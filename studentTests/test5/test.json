@@ -1,0 +1,8 @@
+{
+  "name": "test5",
+  "category": "camera",
+  "title": "Orthographic camera with a screen window",
+  "description": "Orthographic camera with screenwindow [-4 4 -3 3]: two equal spheres at very different depths must have the same projected size, plus a tilted triangle.",
+  "scene": "testscene_5.pbrt",
+  "max_mismatch_percent": 0.25
+}

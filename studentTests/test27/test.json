@@ -1,0 +1,12 @@
+{
+  "name": "test27",
+  "category": "error",
+  "title": "Invalid film resolution",
+  "description": "A negative xresolution.",
+  "scene": "testscene_27.pbrt",
+  "keywords": [
+    "resolution",
+    "xresolution"
+  ],
+  "line": 5
+}

@@ -1,0 +1,20 @@
+# testscene_4 (camera): Narrow field of view on a portrait image
+# fov 15 on a portrait 120x200 image. For portrait images the fov spans the horizontal axis; the red sphere touches the left border, so a wrong axis convention changes the framing.
+LookAt 0 0 20   0 0 0   0 1 0
+Camera "perspective" "float fov" [15]
+Film "rgb" "integer xresolution" [120] "integer yresolution" [200] "string filename" "testsuite_ref_4.pfm"
+Sampler "stratified" "integer xsamples" [1] "integer ysamples" [1] "bool jitter" false
+PixelFilter "box"
+Integrator "path" "integer maxdepth" [1]
+WorldBegin
+Material "diffuse" "rgb reflectance" [0 0 0]
+AttributeBegin
+  Translate -1.15 0 0
+  AreaLightSource "diffuse" "rgb L" [1 0 0]
+  Shape "sphere" "float radius" [1.2]
+AttributeEnd
+AttributeBegin
+  Translate 1.1 2.3 0
+  AreaLightSource "diffuse" "rgb L" [0 0 1]
+  Shape "sphere" "float radius" [0.9]
+AttributeEnd

@@ -1,0 +1,11 @@
+{
+  "name": "test30",
+  "category": "error",
+  "title": "Unknown material type",
+  "description": "Material \"velvet\" is not a PBRT material.",
+  "scene": "testscene_30.pbrt",
+  "keywords": [
+    "velvet"
+  ],
+  "line": 12
+}

@@ -1,0 +1,8 @@
+{
+  "name": "test1",
+  "category": "camera",
+  "title": "Perspective camera and sphere silhouettes",
+  "description": "Perspective camera (fov 40) with a centred red emissive sphere and an off-centre green one. Checks that sphere boundaries fall on exactly the same pixels as in PBRT.",
+  "scene": "testscene_1.pbrt",
+  "max_mismatch_percent": 0.25
+}

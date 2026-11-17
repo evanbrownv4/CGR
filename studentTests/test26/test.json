@@ -1,0 +1,11 @@
+{
+  "name": "test26",
+  "category": "error",
+  "title": "Unmatched AttributeEnd",
+  "description": "An AttributeEnd without a matching AttributeBegin.",
+  "scene": "testscene_26.pbrt",
+  "keywords": [
+    "AttributeEnd"
+  ],
+  "line": 12
+}

@@ -1,0 +1,8 @@
+{
+  "name": "test3",
+  "category": "camera",
+  "title": "Wide field of view on a 2:1 image",
+  "description": "fov 100 on a 240x120 image with spheres near the corners and edges (strong perspective stretching). Checks the fov convention (fov spans the shorter, vertical axis) and the screen-window mapping for non-square images.",
+  "scene": "testscene_3.pbrt",
+  "max_mismatch_percent": 0.25
+}

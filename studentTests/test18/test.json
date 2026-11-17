@@ -1,0 +1,11 @@
+{
+  "name": "test18",
+  "category": "error",
+  "title": "Non-numeric parameter value",
+  "description": "\"float radius\" [abc]: a parameter value that is not a number.",
+  "scene": "testscene_18.pbrt",
+  "keywords": [
+    "abc"
+  ],
+  "line": 12
+}

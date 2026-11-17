@@ -1,0 +1,13 @@
+# testscene_24 (error): Missing closing bracket
+# A parameter value list opened with '[' but never closed.
+LookAt 0 1 5   0 0 0   0 1 0
+Camera "perspective" "float fov" [40]
+Film "rgb" "integer xresolution" [64] "integer yresolution" [48] "string filename" "testsuite_ref_24.pfm"
+Sampler "independent" "integer pixelsamples" [4]
+Integrator "path" "integer maxdepth" [1]
+WorldBegin
+LightSource "point" "point3 from" [2 4 3] "rgb I" [20 20 20]
+Material "diffuse" "rgb reflectance" [0.5 0.5 0.5]
+Shape "sphere" "float radius" [1]
+LightSource "point" "point3 from" [0 4 0] "rgb I" [5 5 5
+Shape "sphere" "float radius" [0.3]

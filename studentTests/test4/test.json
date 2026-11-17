@@ -1,0 +1,8 @@
+{
+  "name": "test4",
+  "category": "camera",
+  "title": "Narrow field of view on a portrait image",
+  "description": "fov 15 on a portrait 120x200 image. For portrait images the fov spans the horizontal axis; the red sphere touches the left border, so a wrong axis convention changes the framing.",
+  "scene": "testscene_4.pbrt",
+  "max_mismatch_percent": 0.25
+}
