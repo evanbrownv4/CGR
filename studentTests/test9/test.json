@@ -1,0 +1,43 @@
+{
+  "name": "test9",
+  "category": "shading",
+  "title": "Area light and soft shadows",
+  "description": "A 2x2 rectangular area light above a diffuse sphere and floor, direct lighting only. Pixels in the umbra, the penumbra and the fully lit floor check the area-light estimator (cosine terms, 1/d^2, one-sided emission).",
+  "scene": "testscene_9.pbrt",
+  "ref_spp": 8192,
+  "radius": 2,
+  "rel_tol": 0.06,
+  "abs_tol": 0.005,
+  "pixels": [
+    {
+      "x": 77,
+      "y": 43,
+      "label": "sphere, lit top"
+    },
+    {
+      "x": 78,
+      "y": 73,
+      "label": "floor, umbra"
+    },
+    {
+      "x": 55,
+      "y": 72,
+      "label": "floor, penumbra (left edge of shadow)"
+    },
+    {
+      "x": 42,
+      "y": 103,
+      "label": "floor, fully lit"
+    },
+    {
+      "x": 141,
+      "y": 57,
+      "label": "floor, far right"
+    },
+    {
+      "x": 102,
+      "y": 68,
+      "label": "floor, penumbra (right edge of shadow)"
+    }
+  ]
+}

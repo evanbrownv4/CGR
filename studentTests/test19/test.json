@@ -1,0 +1,11 @@
+{
+  "name": "test19",
+  "category": "error",
+  "title": "Missing texture file",
+  "description": "An imagemap texture whose file does not exist.",
+  "scene": "testscene_19.pbrt",
+  "keywords": [
+    "missing_texture.pfm"
+  ],
+  "line": 12
+}

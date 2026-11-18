@@ -1,0 +1,13 @@
+{
+  "name": "test28",
+  "category": "error",
+  "title": "Vertex index out of range",
+  "description": "A trianglemesh whose indices refer to a vertex that does not exist.",
+  "scene": "testscene_28.pbrt",
+  "keywords": [
+    "out of range",
+    "index",
+    "indices"
+  ],
+  "line": 12
+}

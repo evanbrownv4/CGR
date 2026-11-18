@@ -1,0 +1,306 @@
+# acc_complex: a sculpture gallery with ~350 objects (~280k triangles): 120 plinths, each
+# carrying a sphere, a low-poly sphere, a mug, a vase or a torus, under two area lights
+# and three point lights, rendered with the DRT. Brute-force intersection would
+# test every primitive for every camera, shadow and indirect ray.
+Scale -1 1 1
+LookAt 0 4 8.5   0 0.6 -5   0 1 0
+Camera "perspective" "float fov" [55]
+Film "rgb" "integer xresolution" [640] "integer yresolution" [400] "string filename" "acc_complex.png"
+     "string tonemap" "reinhard" "float key" [0.2]
+Sampler "stratified" "integer xsamples" [2] "integer ysamples" [2]
+Integrator "distributed" "integer maxdepth" [1] "integer branching" [2]
+           "integer lightsamples" [4] "string lightsampler" "halton"
+WorldBegin
+AttributeBegin
+  AreaLightSource "diffuse" "rgb L" [6 6 6.5]
+  Material "diffuse" "rgb reflectance" [0 0 0]
+  Shape "bilinearmesh" "point3 P" [-9 8 -10  -3 8 -10  -9 8 -4  -3 8 -4] "integer indices" [0 1 2 3]
+  Shape "bilinearmesh" "point3 P" [3 8 -4  9 8 -4  3 8 2  9 8 2] "integer indices" [0 1 2 3]
+AttributeEnd
+LightSource "point" "point3 from" [-8 4 6] "rgb I" [40 34 28]
+LightSource "point" "point3 from" [8 4 6] "rgb I" [28 34 40]
+LightSource "point" "point3 from" [0 6 -14] "rgb I" [60 60 60]
+LightSource "infinite" "rgb L" [0.04 0.04 0.05]
+Texture "chk" "spectrum" "checkerboard" "float uscale" [0.5] "float vscale" [0.5] "rgb tex1" [0.7 0.68 0.65] "rgb tex2" [0.35 0.33 0.3]
+Material "diffuse" "texture reflectance" "chk"
+Shape "plane" "point3 p" [0 0 0] "normal n" [0 1 0]
+Material "diffuse" "rgb reflectance" [0.6 0.6 0.62]
+Shape "plane" "point3 p" [0 0 -16] "normal n" [0 0 1]
+
+AttributeBegin Translate -8.80 0.25 2.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -8.80 0.85 2.00 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -8.80 0.25 0.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -8.80 0.85 0.40 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -8.80 0.25 -1.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -8.80 0.5 -1.20 Rotate 34 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -8.80 0.25 -2.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -8.80 0.85 -2.80 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -8.80 0.25 -4.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -8.80 0.75 -4.40 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate -8.80 0.25 -6.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -8.80 0.85 -6.00 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -8.80 0.25 -7.60 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -8.80 0.85 -7.60 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -8.80 0.25 -9.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -8.80 0.5 -9.20 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -8.80 0.25 -10.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -8.80 0.85 -10.80 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -8.80 0.25 -12.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -8.80 0.85 -12.40 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -7.20 0.25 2.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -7.20 0.5 2.00 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -7.20 0.25 0.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -7.20 0.85 0.40 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -7.20 0.25 -1.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -7.20 0.85 -1.20 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -7.20 0.25 -2.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -7.20 0.5 -2.80 Rotate 81 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -7.20 0.25 -4.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -7.20 0.85 -4.40 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -7.20 0.25 -6.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -7.20 0.75 -6.00 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate -7.20 0.25 -7.60 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -7.20 0.85 -7.60 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -7.20 0.25 -9.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -7.20 0.85 -9.20 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -7.20 0.25 -10.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -7.20 0.5 -10.80 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -7.20 0.25 -12.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -7.20 0.85 -12.40 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -5.60 0.25 2.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.85 2.00 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.25 0.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.5 0.40 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -5.60 0.25 -1.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.85 -1.20 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -5.60 0.25 -2.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.85 -2.80 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -5.60 0.25 -4.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.5 -4.40 Rotate 128 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -5.60 0.25 -6.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.85 -6.00 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -5.60 0.25 -7.60 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.75 -7.60 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.25 -9.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.85 -9.20 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.25 -10.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.85 -10.80 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.25 -12.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -5.60 0.5 -12.40 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -4.00 0.25 2.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.85 2.00 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.25 0.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.85 0.40 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.25 -1.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.5 -1.20 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -4.00 0.25 -2.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.85 -2.80 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -4.00 0.25 -4.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.85 -4.40 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -4.00 0.25 -6.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.5 -6.00 Rotate 175 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -4.00 0.25 -7.60 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.85 -7.60 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -4.00 0.25 -9.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.75 -9.20 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.25 -10.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.85 -10.80 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.25 -12.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -4.00 0.85 -12.40 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.25 2.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.75 2.00 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.25 0.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.85 0.40 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.25 -1.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.85 -1.20 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.25 -2.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.5 -2.80 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -2.40 0.25 -4.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.85 -4.40 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -2.40 0.25 -6.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.85 -6.00 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -2.40 0.25 -7.60 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.5 -7.60 Rotate 222 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -2.40 0.25 -9.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.85 -9.20 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -2.40 0.25 -10.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.75 -10.80 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.25 -12.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -2.40 0.85 -12.40 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.25 2.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.85 2.00 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -0.80 0.25 0.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.75 0.40 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.25 -1.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.85 -1.20 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.25 -2.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.85 -2.80 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.25 -4.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.5 -4.40 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -0.80 0.25 -6.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.85 -6.00 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -0.80 0.25 -7.60 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.85 -7.60 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -0.80 0.25 -9.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.5 -9.20 Rotate 269 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate -0.80 0.25 -10.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.85 -10.80 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate -0.80 0.25 -12.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate -0.80 0.75 -12.40 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.25 2.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.5 2.00 Rotate 180 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 0.80 0.25 0.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.85 0.40 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 0.80 0.25 -1.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.75 -1.20 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.25 -2.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.85 -2.80 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.25 -4.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.85 -4.40 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.25 -6.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.5 -6.00 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 0.80 0.25 -7.60 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.85 -7.60 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 0.80 0.25 -9.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.85 -9.20 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 0.80 0.25 -10.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.5 -10.80 Rotate 316 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 0.80 0.25 -12.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 0.80 0.85 -12.40 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 2.40 0.25 2.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 2.40 0.85 2.00 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 2.40 0.25 0.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 2.40 0.5 0.40 Rotate 227 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 2.40 0.25 -1.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 2.40 0.85 -1.20 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 2.40 0.25 -2.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 2.40 0.75 -2.80 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate 2.40 0.25 -4.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 2.40 0.85 -4.40 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 2.40 0.25 -6.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 2.40 0.85 -6.00 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 2.40 0.25 -7.60 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 2.40 0.5 -7.60 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 2.40 0.25 -9.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 2.40 0.85 -9.20 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 2.40 0.25 -10.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 2.40 0.85 -10.80 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 2.40 0.25 -12.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 2.40 0.5 -12.40 Rotate 363 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 4.00 0.25 2.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 4.00 0.85 2.00 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 4.00 0.25 0.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 4.00 0.85 0.40 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 4.00 0.25 -1.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 4.00 0.5 -1.20 Rotate 274 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 4.00 0.25 -2.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 4.00 0.85 -2.80 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 4.00 0.25 -4.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 4.00 0.75 -4.40 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate 4.00 0.25 -6.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 4.00 0.85 -6.00 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 4.00 0.25 -7.60 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 4.00 0.85 -7.60 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 4.00 0.25 -9.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 4.00 0.5 -9.20 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 4.00 0.25 -10.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 4.00 0.85 -10.80 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 4.00 0.25 -12.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 4.00 0.85 -12.40 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 5.60 0.25 2.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 5.60 0.5 2.00 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 5.60 0.25 0.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 5.60 0.85 0.40 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 5.60 0.25 -1.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 5.60 0.85 -1.20 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 5.60 0.25 -2.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 5.60 0.5 -2.80 Rotate 321 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 5.60 0.25 -4.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 5.60 0.85 -4.40 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 5.60 0.25 -6.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 5.60 0.75 -6.00 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate 5.60 0.25 -7.60 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 5.60 0.85 -7.60 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 5.60 0.25 -9.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 5.60 0.85 -9.20 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 5.60 0.25 -10.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 5.60 0.5 -10.80 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 5.60 0.25 -12.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 5.60 0.85 -12.40 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 7.20 0.25 2.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.85 2.00 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.25 0.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.5 0.40 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 7.20 0.25 -1.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.85 -1.20 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 7.20 0.25 -2.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.85 -2.80 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 7.20 0.25 -4.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.5 -4.40 Rotate 368 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 7.20 0.25 -6.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.85 -6.00 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 7.20 0.25 -7.60 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.75 -7.60 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.25 -9.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.85 -9.20 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.25 -10.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.85 -10.80 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.25 -12.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 7.20 0.5 -12.40 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 8.80 0.25 2.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.85 2.00 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.25 0.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.85 0.40 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.25 -1.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.5 -1.20 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/vase.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 8.80 0.25 -2.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.85 -2.80 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 8.80 0.25 -4.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.85 -4.40 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 8.80 0.25 -6.00 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.5 -6.00 Rotate 415 0 1 0 Scale 0.5 0.5 0.5 Material "phong" "rgb Kd" [0.16 0.40 0.64] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/mug.obj" "bool smooth" true AttributeEnd
+AttributeBegin Translate 8.80 0.25 -7.60 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.85 -7.60 Material "phong" "rgb Kd" [0.20 0.56 0.24] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "sphere" "float radius" [0.35] AttributeEnd
+AttributeBegin Translate 8.80 0.25 -9.20 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.75 -9.20 Rotate 60 1 0 0 Scale 0.3 0.3 0.3 Material "phong" "rgb Kd" [0.64 0.16 0.12] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/torus.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.25 -10.80 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.85 -10.80 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.72 0.60 0.16] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.25 -12.40 Scale 0.7 0.5 0.7 Material "diffuse" "rgb reflectance" [0.75 0.75 0.72] Shape "objmesh" "string filename" "assets/cube.obj" AttributeEnd
+AttributeBegin Translate 8.80 0.85 -12.40 Scale 0.35 0.35 0.35 Material "phong" "rgb Kd" [0.56 0.24 0.56] "rgb Ks" [0.2 0.2 0.2] "float exponent" [60] Shape "objmesh" "string filename" "assets/lowpoly_sphere.obj" AttributeEnd
+AttributeBegin Translate 8.79 0.15 -8.92 Material "phong" "rgb Kd" [0.60 0.15 0.11] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 6.12 0.15 3.69 Material "phong" "rgb Kd" [0.15 0.38 0.60] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate -2.68 0.15 3.28 Material "phong" "rgb Kd" [0.19 0.52 0.22] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 9.77 0.15 -8.25 Material "phong" "rgb Kd" [0.52 0.22 0.52] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate -9.92 0.15 0.88 Material "phong" "rgb Kd" [0.15 0.38 0.60] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate -5.62 0.15 -13.78 Material "phong" "rgb Kd" [0.60 0.15 0.11] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 5.23 0.15 -13.58 Material "phong" "rgb Kd" [0.68 0.56 0.15] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 3.93 0.15 -3.49 Material "phong" "rgb Kd" [0.19 0.52 0.22] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 3.96 0.15 -7.43 Material "phong" "rgb Kd" [0.15 0.38 0.60] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 2.04 0.15 -1.06 Material "phong" "rgb Kd" [0.19 0.52 0.22] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 2.38 0.15 3.93 Material "phong" "rgb Kd" [0.52 0.22 0.52] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 8.70 0.15 -11.03 Material "phong" "rgb Kd" [0.15 0.38 0.60] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 5.33 0.15 -9.91 Material "phong" "rgb Kd" [0.68 0.56 0.15] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 3.87 0.15 -12.47 Material "phong" "rgb Kd" [0.15 0.38 0.60] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate -7.21 0.15 2.27 Material "phong" "rgb Kd" [0.19 0.52 0.22] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 3.70 0.15 0.68 Material "phong" "rgb Kd" [0.68 0.56 0.15] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 6.92 0.15 0.99 Material "phong" "rgb Kd" [0.15 0.38 0.60] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate -8.60 0.15 3.48 Material "phong" "rgb Kd" [0.60 0.15 0.11] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate -3.58 0.15 3.63 Material "phong" "rgb Kd" [0.68 0.56 0.15] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 3.23 0.15 -14.97 Material "phong" "rgb Kd" [0.19 0.52 0.22] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 2.04 0.15 -12.17 Material "phong" "rgb Kd" [0.60 0.15 0.11] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 2.06 0.15 -4.66 Material "phong" "rgb Kd" [0.15 0.38 0.60] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate -4.60 0.15 -14.57 Material "phong" "rgb Kd" [0.68 0.56 0.15] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate -5.92 0.15 -1.02 Material "phong" "rgb Kd" [0.68 0.56 0.15] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 3.90 0.15 -10.45 Material "phong" "rgb Kd" [0.60 0.15 0.11] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 6.90 0.15 -9.47 Material "phong" "rgb Kd" [0.19 0.52 0.22] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 2.71 0.15 -14.44 Material "phong" "rgb Kd" [0.52 0.22 0.52] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 0.51 0.15 -1.66 Material "phong" "rgb Kd" [0.60 0.15 0.11] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate -7.22 0.15 -8.41 Material "phong" "rgb Kd" [0.60 0.15 0.11] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate -7.21 0.15 -9.18 Material "phong" "rgb Kd" [0.19 0.52 0.22] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate -4.27 0.15 -1.89 Material "phong" "rgb Kd" [0.52 0.22 0.52] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate -2.61 0.15 -6.66 Material "phong" "rgb Kd" [0.60 0.15 0.11] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 5.33 0.15 -1.38 Material "phong" "rgb Kd" [0.15 0.38 0.60] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 9.70 0.15 3.49 Material "phong" "rgb Kd" [0.19 0.52 0.22] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate -2.45 0.15 -3.16 Material "phong" "rgb Kd" [0.52 0.22 0.52] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 0.72 0.15 -8.56 Material "phong" "rgb Kd" [0.15 0.38 0.60] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd
+AttributeBegin Translate 2.80 0.15 -14.97 Material "phong" "rgb Kd" [0.68 0.56 0.15] "rgb Ks" [0.25 0.25 0.25] "float exponent" [80] Shape "sphere" "float radius" [0.15] AttributeEnd

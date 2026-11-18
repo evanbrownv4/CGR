@@ -67,6 +67,8 @@ executable. The log records:
 * the integrator settings
 * per-stage timings (`TIMING parse= build= render= output= total=`)
 * ray counts and throughput
+* BVH statistics (nodes, leaves, depth) and the number of ray-primitive tests and BVH
+  node visits per ray
 
 Options:
 
@@ -78,6 +80,7 @@ Options:
 | `--threads <n>` | number of render threads (default: all cores) |
 | `--seed <n>` | random seed |
 | `--nobvh` | disable the BVH and use brute-force intersection |
+| `--resolution <w> <h>` | override the film resolution |
 | `--hdr` | also write the linear radiance as `<name>.pfm` |
 | `--quiet` | print only warnings and errors |
 
@@ -88,8 +91,12 @@ To render every image used in the reports:
 ```
 
 Pass a name filter to render a subset, for example `./renderReportedImages.sh aa_`.
-The script also writes `output/sampler_rmse.txt`, which lists the RMSE of each
-sampler render against the reference.
+The script also writes two summary files:
+
+* `output/sampler_rmse.txt`: the RMSE of each sampler render against the reference
+* `output/acc_timings.txt`: render time with and without the BVH for `acc_best`, `acc_worst`
+  and `acc_complex`, with the speedup and the ray-primitive tests per ray. Brute force on
+  `acc_complex` (~280k triangles) is far too slow at full size, so it is timed at 64×40.
 
 ### Image comparison tool
 
@@ -100,15 +107,23 @@ output/CGR26_renderer --compare <reference> <test> [--pixel x y]... [--region x0
 The tool reads PPM (P3/P6) and PFM images. It prints:
 
 * the RMSE (overall and per channel), the maximum absolute difference and the PSNR
-* optionally the RMSE inside a region and the values at chosen pixels
+* optionally the RMSE inside a region and the values at chosen pixels; `--radius r`
+  averages each `--pixel` over a (2r+1)×(2r+1) window
 
 It can also write an absolute-difference image. For quantitative work, compare the
 linear `.pfm` images. PBRT's output can be converted with `imgtool convert ref.exr ref.pfm`.
 
 ### Running the student tests
 
-The test suite is part of Module 3 and is not included yet. When it is added,
-`studentTests/runAllTests.sh` will run every test.
+```bash
+studentTests/runAllTests.sh
+```
+
+This runs all 30 tests in sequence: 7 camera/intersection, 6 shading and 17 error-handling
+tests. The log goes to `output/tests/test_results.log`. The PBRT-v4 reference images are
+generated with `studentTests/makeReferences.sh` (needs `PBRT=/path/to/pbrt`); tests without a
+reference are reported as SKIP. See `studentTests/README.md` for the folder format, the pass
+criteria and how to run the suite against another renderer.
 
 ## Supported scene format (PBRT subset)
 
@@ -135,7 +150,8 @@ The test suite is part of Module 3 and is not included yet. When it is added,
 
 **Film `"rgb"`**
 
-* `xresolution`, `yresolution`, `filename` (`.png` or `.ppm`)
+* `xresolution`, `yresolution`, `filename` (`.png` or `.ppm`; `.pfm` writes the linear PFM
+  plus a tone-mapped PNG)
 * Renderer-specific parameters:
   * `"string tonemap"` `"reinhard"|"clamp"` (default: `reinhard` for the DRT, `clamp` for the WSRT)
   * `"string tonemapmode"` `"luminance"|"channel"`
@@ -154,6 +170,9 @@ The test suite is part of Module 3 and is not included yet. When it is added,
 
 **Integrator**
 
+* `"path"`/`"volpath"`/`"simplepath"` (PBRT): emulated by the distributed tracer with
+  branching 1 and 1 light sample. PBRT's `maxdepth` is converted (PBRT `maxdepth 1` = direct
+  lighting only = our `maxdepth 0`).
 * `"whitted"`: `maxdepth` (default 5), `"rgb ambient"` (default 0.05), `rayepsilon`
 * `"distributed"`:
   * `maxdepth` (MD, default 3)

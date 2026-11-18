@@ -1,0 +1,12 @@
+{
+  "name": "test17",
+  "category": "error",
+  "title": "Singular transform",
+  "description": "Scale 0 1 1 makes the transformation matrix singular (not invertible).",
+  "scene": "testscene_17.pbrt",
+  "keywords": [
+    "singular",
+    "Scale"
+  ],
+  "line": 13
+}

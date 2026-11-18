@@ -1,0 +1,11 @@
+{
+  "name": "test20",
+  "category": "error",
+  "title": "Missing included file",
+  "description": "Include of a scene file that does not exist.",
+  "scene": "testscene_20.pbrt",
+  "keywords": [
+    "does_not_exist.pbrt"
+  ],
+  "line": 12
+}

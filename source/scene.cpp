@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+thread_local uint64_t tlPrimTests = 0, tlNodeVisits = 0;
+
 // ------------------------------------------------------------------- BVH ---
 // Binned surface-area-heuristic build over primitive bounding boxes.
 
@@ -89,6 +91,7 @@ int BVH::buildRec(int first, int last, int depth) {
     int r = buildRec(mid, last, depth + 1);
     nodes_[idx].left = l;
     nodes_[idx].right = r;
+    nodes_[idx].axis = axis;
     return idx;
 }
 
@@ -101,16 +104,23 @@ bool BVH::intersect(const Ray& r, double tmin, double tmax, Hit& h) const {
     bool hit = false;
     while (sp) {
         const Node& node = nodes_[stack[--sp]];
+        ++tlNodeVisits;
         if (!node.box.intersect(r, invD, tmin, tmax)) continue;
         if (node.count > 0) {
+            tlPrimTests += node.count;
             for (int i = node.first; i < node.first + node.count; ++i)
                 if (prims_[i]->intersect(r, tmin, tmax, h)) {
                     hit = true;
-                    tmax = h.t;
+                    tmax = h.t;  // shrink the interval: farther boxes are culled
                 }
-        } else {
+        } else if (r.d[node.axis] < 0) {
+            // Visit the child on the ray's side of the split first (pushed last),
+            // so the closest hit is usually found early and tmax culls the other.
             stack[sp++] = node.left;
             stack[sp++] = node.right;
+        } else {
+            stack[sp++] = node.right;
+            stack[sp++] = node.left;
         }
     }
     return hit;
@@ -125,16 +135,26 @@ bool BVH::occluded(const Ray& r, double tmin, double tmax) const {
     Hit h;
     while (sp) {
         const Node& node = nodes_[stack[--sp]];
+        ++tlNodeVisits;
         if (!node.box.intersect(r, invD, tmin, tmax)) continue;
         if (node.count > 0) {
-            for (int i = node.first; i < node.first + node.count; ++i)
+            for (int i = node.first; i < node.first + node.count; ++i) {
+                ++tlPrimTests;
                 if (prims_[i]->intersect(r, tmin, tmax, h)) return true;
+            }
         } else {
             stack[sp++] = node.left;
             stack[sp++] = node.right;
         }
     }
     return false;
+}
+
+size_t BVH::leafCount() const {
+    size_t n = 0;
+    for (const Node& node : nodes_)
+        if (node.count > 0) ++n;
+    return n;
 }
 
 // ----------------------------------------------------------------- Scene ---
@@ -164,12 +184,14 @@ bool Scene::intersect(const Ray& r, double tmin, double tmax, Hit& h) const {
             tmax = h.t;
         }
     } else {
+        tlPrimTests += bounded_.size();
         for (const Primitive* p : bounded_)
             if (p->intersect(r, tmin, tmax, h)) {
                 hit = true;
                 tmax = h.t;
             }
     }
+    tlPrimTests += unbounded_.size();
     for (const Primitive* p : unbounded_)
         if (p->intersect(r, tmin, tmax, h)) {
             hit = true;
@@ -180,10 +202,14 @@ bool Scene::intersect(const Ray& r, double tmin, double tmax, Hit& h) const {
 
 bool Scene::occluded(const Ray& r, double tmin, double tmax) const {
     Hit h;
-    for (const Primitive* p : unbounded_)
+    for (const Primitive* p : unbounded_) {
+        ++tlPrimTests;
         if (p->intersect(r, tmin, tmax, h)) return true;
+    }
     if (settings.useBVH) return bvh_.occluded(r, tmin, tmax);
-    for (const Primitive* p : bounded_)
+    for (const Primitive* p : bounded_) {
+        ++tlPrimTests;
         if (p->intersect(r, tmin, tmax, h)) return true;
+    }
     return false;
 }

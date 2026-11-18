@@ -31,10 +31,12 @@ static void usage() {
         "    --threads <n>      number of render threads (default: all cores)\n"
         "    --seed <n>         random seed\n"
         "    --nobvh            disable the BVH (brute-force intersection)\n"
+        "    --resolution <w> <h>  override the film resolution\n"
         "    --hdr              also write linear radiance as <name>.pfm\n"
         "    --quiet            only print warnings and errors\n"
         "  CGR26_renderer --compare <reference> <test> [options]   (PPM or PFM images)\n"
         "    --pixel <x> <y>    report values at a pixel (repeatable)\n"
+        "    --radius <r>       average --pixel values over a (2r+1)x(2r+1) window\n"
         "    --region <x0> <y0> <x1> <y1>  also report RMSE inside a region (exclusive max)\n"
         "    --diff <out.png> [scale]       write an absolute difference image\n";
 }
@@ -67,6 +69,7 @@ static int compareMain(int argc, char** argv) {
     int region[4] = {-1, -1, -1, -1};
     std::string diffPath;
     double diffScale = 1.0;
+    int radius = 0;
     for (int i = 4; i < argc; ++i) {
         std::string a = argv[i];
         if (a == "--pixel" && i + 2 < argc) {
@@ -84,6 +87,11 @@ static int compareMain(int argc, char** argv) {
                     return 2;
                 }
             i += 4;
+        } else if (a == "--radius" && i + 1 < argc) {
+            if (!parseIntArg(argv[++i], radius) || radius < 0) {
+                std::cerr << "invalid --radius argument\n";
+                return 2;
+            }
         } else if (a == "--diff" && i + 1 < argc) {
             diffPath = argv[++i];
             if (i + 1 < argc && argv[i + 1][0] != '-') diffScale = std::atof(argv[++i]);
@@ -147,7 +155,19 @@ static int compareMain(int argc, char** argv) {
             std::cerr << "warning: pixel (" << px.first << "," << px.second << ") outside image\n";
             continue;
         }
-        Color a = ref.at(px.first, px.second), b = test.at(px.first, px.second);
+        // Average over a (2r+1)^2 window to reduce Monte Carlo noise.
+        Color a(0), b(0);
+        int cnt = 0;
+        for (int dy = -radius; dy <= radius; ++dy)
+            for (int dx = -radius; dx <= radius; ++dx) {
+                int x = px.first + dx, y = px.second + dy;
+                if (x < 0 || y < 0 || x >= ref.width || y >= ref.height) continue;
+                a += ref.at(x, y);
+                b += test.at(x, y);
+                ++cnt;
+            }
+        a /= cnt;
+        b /= cnt;
         Color d = b - a;
         std::cout << "pixel (" << px.first << "," << px.second << ") ref=(" << fmt(a.x) << " " << fmt(a.y) << " " << fmt(a.z)
                   << ") test=(" << fmt(b.x) << " " << fmt(b.y) << " " << fmt(b.z) << ") absdiff=(" << fmt(std::fabs(d.x))
@@ -192,7 +212,7 @@ int main(int argc, char** argv) {
     std::string scenePath = argv[1];
     std::string outDir = executableDir(argv[0]);
     std::string outputOverride;
-    int sppOverride = -1, threads = 0, seed = -1;
+    int sppOverride = -1, threads = 0, seed = -1, resW = -1, resH = -1;
     bool noBVH = false, hdr = false, quiet = false;
     for (int i = 2; i < argc; ++i) {
         std::string a = argv[i];
@@ -209,6 +229,14 @@ int main(int argc, char** argv) {
         else if (a == "--threads") needInt(threads);
         else if (a == "--seed") needInt(seed);
         else if (a == "--nobvh") noBVH = true;
+        else if (a == "--resolution") {
+            needInt(resW);
+            needInt(resH);
+            if (resW < 1 || resH < 1 || resW > 16384 || resH > 16384) {
+                std::cerr << "error: --resolution out of range\n";
+                return 2;
+            }
+        }
         else if (a == "--hdr") hdr = true;
         else if (a == "--quiet") quiet = true;
         else {
@@ -255,6 +283,14 @@ int main(int argc, char** argv) {
     if (seed >= 0) s.seed = (uint64_t)seed;
     if (noBVH) s.useBVH = false;
     if (hdr) s.writeHDR = true;
+    if (resW > 0) {
+        s.width = scene.camera.width = resW;
+        s.height = scene.camera.height = resH;
+        if (!scene.camera.windowSpecified)
+            for (double& v : scene.camera.screenWindow) v = 0;  // re-derive from the new aspect ratio
+        scene.camera.setup();
+        log.info("resolution overridden on the command line: " + std::to_string(resW) + "x" + std::to_string(resH));
+    }
     if (!s.tonemapSpecified) {
         s.tonemap.op = s.integrator == "distributed" ? ToneMapSettings::Op::Reinhard : ToneMapSettings::Op::Clamp;
     }
@@ -271,6 +307,10 @@ int main(int argc, char** argv) {
                  fmt(al->L.y) + " " + fmt(al->L.z) + ")" + (al->isParallelogram ? ", parallelogram mapping" : ""));
     log.info("acceleration structure build: " + fmt(tBuild) + " s" +
              (s.useBVH ? "" : " (BVH disabled: brute force intersection)"));
+    if (s.useBVH)
+        log.info("BVH: " + std::to_string(scene.boundedCount()) + " bounded primitives, " +
+                 std::to_string(scene.bvh().nodeCount()) + " nodes, " + std::to_string(scene.bvh().leafCount()) +
+                 " leaves, depth " + std::to_string(scene.bvh().depth()));
 
     std::ostringstream cfg;
     cfg << "integrator: " << s.integrator << ", maxdepth " << s.maxDepth;
@@ -297,6 +337,10 @@ int main(int argc, char** argv) {
     log.info("rays: " + std::to_string(stats.total()) + " total (" + std::to_string(stats.camera) + " camera, " +
              std::to_string(stats.secondary) + " secondary, " + std::to_string(stats.shadow) + " shadow), " +
              fmt(stats.total() / std::max(tRender, 1e-9) / 1e6, 3) + " Mrays/s");
+    log.info("intersection work: " + std::to_string(stats.primTests) + " ray-primitive tests (" +
+             fmt((double)stats.primTests / std::max<uint64_t>(1, stats.total()), 2) + " per ray), " +
+             std::to_string(stats.nodeVisits) + " BVH node visits (" +
+             fmt((double)stats.nodeVisits / std::max<uint64_t>(1, stats.total()), 2) + " per ray)");
 
     stage.reset();
     ToneMapStats tms;

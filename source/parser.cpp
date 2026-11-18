@@ -830,11 +830,14 @@ void Parser::finish() {
         if (!sw.empty()) {
             if (sw.size() != 4 || sw[0] >= sw[1] || sw[2] >= sw[3])
                 log_.error(w + ": screenwindow needs 4 values [xmin xmax ymin ymax] with min < max; ignored");
-            else
+            else {
                 for (int i = 0; i < 4; ++i) cam.screenWindow[i] = sw[i];
+                cam.windowSpecified = true;
+            }
         }
         double far = ps.getFloat("frameaspectratio", -1);
         if (far > 0 && sw.empty()) {
+            cam.windowSpecified = true;
             if (far > 1) { cam.screenWindow[0] = -far; cam.screenWindow[1] = far; cam.screenWindow[2] = -1; cam.screenWindow[3] = 1; }
             else { cam.screenWindow[0] = -1; cam.screenWindow[1] = 1; cam.screenWindow[2] = -1 / far; cam.screenWindow[3] = 1 / far; }
         }
@@ -888,6 +891,11 @@ void Parser::film(const std::string& type, const ParamSet& ps) {
         s.outputName = p.stem().string();
         if (ext == ".ppm") s.outputExt = ".ppm";
         else if (ext == ".png") s.outputExt = ".png";
+        else if (ext == ".pfm") {
+            s.outputExt = ".png";
+            s.writeHDR = true;
+            log_.info(ps.where + ": .pfm output requested: writing linear PFM plus a tone-mapped PNG");
+        }
         else {
             log_.warning(ps.where + ": output format '" + ext + "' not supported; writing PNG instead");
             s.outputExt = ".png";
@@ -975,6 +983,7 @@ void Parser::sampler(const std::string& type, const ParamSet& ps) {
 void Parser::integrator(const std::string& type, const ParamSet& ps) {
     RenderSettings& s = scene_.settings;
     integratorSeen_ = true;
+    bool pbrtPath = false;
     std::string t = lowerStr(type);
     if (t == "whitted" || t == "wsrt") {
         s.integrator = "whitted";
@@ -982,16 +991,28 @@ void Parser::integrator(const std::string& type, const ParamSet& ps) {
     } else if (t == "distributed" || t == "drt") {
         s.integrator = "distributed";
         s.maxDepth = 3;
+    } else if (t == "path" || t == "volpath" || t == "simplepath") {
+        // PBRT path tracers: emulated by the DRT with one indirect ray and one
+        // light sample per bounce. PBRT's maxdepth counts bounces including the
+        // direct-lighting one (maxdepth 1 = direct only), ours counts indirect
+        // bounces (0 = direct only), hence the -1.
+        s.integrator = "distributed";
+        s.branching = 1;
+        s.lightSamples = 1;
+        pbrtPath = true;
+        log_.info(ps.where + ": PBRT integrator \"" + type +
+                  "\" emulated by the distributed ray tracer (branching 1, 1 light sample, maxdepth - 1)");
     } else {
         log_.warning(ps.where + ": integrator \"" + type + "\" not supported; using the distributed ray tracer");
         s.integrator = "distributed";
         s.maxDepth = 3;
     }
-    int md = ps.getInt("maxdepth", s.maxDepth);
+    int md = ps.getInt("maxdepth", pbrtPath ? 5 : s.maxDepth);
     if (md < 0 || md > 64) {
         log_.error(ps.where + ": maxdepth " + std::to_string(md) + " out of range [0, 64]; clamped");
         md = std::max(0, std::min(64, md));
     }
+    if (pbrtPath) md = std::max(0, md - 1);
     s.maxDepth = md;
     s.rayEpsilon = ps.getFloat("rayepsilon", s.rayEpsilon);
     if (s.rayEpsilon < 0) {
@@ -1013,6 +1034,7 @@ void Parser::integrator(const std::string& type, const ParamSet& ps) {
             ls = 16;
         }
         std::string strat = ps.getString("lightsampler", "uniform");
+        if (pbrtPath && (strat == "bvh" || strat == "power")) strat = "uniform";  // PBRT light-selection strategies
         if (!parseStrategy(strat, s.lightSampler)) {
             log_.error(ps.where + ": unknown lightsampler \"" + strat + "\" (expected uniform|grid|halton|stratified); using uniform");
             s.lightSampler = SampleStrategy::Uniform;

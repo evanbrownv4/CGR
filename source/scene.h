@@ -46,9 +46,16 @@ struct RenderSettings {
 // Per-thread ray counters, aggregated for profiling output.
 struct RayStats {
     uint64_t camera = 0, shadow = 0, secondary = 0;
-    void add(const RayStats& o) { camera += o.camera; shadow += o.shadow; secondary += o.secondary; }
+    uint64_t primTests = 0, nodeVisits = 0;  // ray-primitive tests and BVH nodes visited
+    void add(const RayStats& o) {
+        camera += o.camera; shadow += o.shadow; secondary += o.secondary;
+        primTests += o.primTests; nodeVisits += o.nodeVisits;
+    }
     uint64_t total() const { return camera + shadow + secondary; }
 };
+
+// Per-thread intersection counters (cheap profiling, collected into RayStats).
+extern thread_local uint64_t tlPrimTests, tlNodeVisits;
 
 class BVH {
 public:
@@ -56,6 +63,7 @@ public:
     bool intersect(const Ray& r, double tmin, double tmax, Hit& h) const;
     bool occluded(const Ray& r, double tmin, double tmax) const;
     size_t nodeCount() const { return nodes_.size(); }
+    size_t leafCount() const;
     int depth() const { return depth_; }
 
 private:
@@ -63,6 +71,7 @@ private:
         AABB box;
         int left = -1, right = -1;  // children (interior)
         int first = 0, count = 0;   // primitive range (leaf when count > 0)
+        int axis = 0;               // split axis, used to visit the nearer child first
     };
     struct Item {
         const Primitive* prim;
@@ -93,6 +102,7 @@ public:
     bool intersect(const Ray& r, double tmin, double tmax, Hit& h) const;
     bool occluded(const Ray& r, double tmin, double tmax) const;
     AABB worldBounds() const { return bounds_; }
+    const BVH& bvh() const { return bvh_; }
     size_t boundedCount() const { return bounded_.size(); }
 
 private:

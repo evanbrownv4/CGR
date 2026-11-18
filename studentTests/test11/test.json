@@ -1,0 +1,43 @@
+{
+  "name": "test11",
+  "category": "shading",
+  "title": "Image and procedural textures",
+  "description": "quadrants.pfm (red bottom-left, green bottom-right, blue top-left, white top-right) on an upright quad and a 6x6 checkerboard on the floor. Checks bilinear-patch uv coordinates, the image v-flip convention and texture scaling.",
+  "scene": "testscene_11.pbrt",
+  "ref_spp": 8192,
+  "radius": 2,
+  "rel_tol": 0.06,
+  "abs_tol": 0.005,
+  "pixels": [
+    {
+      "x": 69,
+      "y": 38,
+      "label": "image quad, white quadrant"
+    },
+    {
+      "x": 88,
+      "y": 38,
+      "label": "image quad, blue quadrant"
+    },
+    {
+      "x": 69,
+      "y": 56,
+      "label": "image quad, green quadrant"
+    },
+    {
+      "x": 88,
+      "y": 55,
+      "label": "image quad, red quadrant"
+    },
+    {
+      "x": 98,
+      "y": 108,
+      "label": "checker floor, light square"
+    },
+    {
+      "x": 50,
+      "y": 108,
+      "label": "checker floor, dark square"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+# testscene_11 (shading): Image and procedural textures
+# quadrants.pfm (red bottom-left, green bottom-right, blue top-left, white top-right) on an upright quad and a 6x6 checkerboard on the floor. Checks bilinear-patch uv coordinates, the image v-flip convention and texture scaling.
+LookAt 0 1.5 6   0 1.2 0   0 1 0
+Camera "perspective" "float fov" [45]
+Film "rgb" "integer xresolution" [160] "integer yresolution" [120] "string filename" "testsuite_ref_11.pfm"
+Sampler "independent" "integer pixelsamples" [256]
+PixelFilter "box"
+Integrator "path" "integer maxdepth" [1]
+WorldBegin
+LightSource "point" "point3 from" [0 3 4] "rgb I" [30 30 30]
+Texture "quad" "spectrum" "imagemap" "string filename" "quadrants.pfm"
+Texture "chk" "spectrum" "checkerboard" "float uscale" [6] "float vscale" [6] "rgb tex1" [0.8 0.8 0.8] "rgb tex2" [0.1 0.1 0.1]
+Material "diffuse" "texture reflectance" "chk"
+Shape "bilinearmesh" "point3 P" [-4 0 -4   4 0 -4   -4 0 4   4 0 4]
+Material "diffuse" "texture reflectance" "quad"
+Shape "bilinearmesh" "point3 P" [-1.5 0.5 -1   1.5 0.5 -1   -1.5 2.5 -1   1.5 2.5 -1]

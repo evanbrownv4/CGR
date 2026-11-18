@@ -1,0 +1,8 @@
+{
+  "name": "test6",
+  "category": "camera",
+  "title": "Transform semantics",
+  "description": "Camera mirrored with Scale -1 1 1 before LookAt, nested AttributeBegin blocks, Rotate about an oblique axis, non-uniform Scale (an ellipsoid) and a ConcatTransform shear. A different matrix convention moves or reshapes the objects.",
+  "scene": "testscene_6.pbrt",
+  "max_mismatch_percent": 0.25
+}

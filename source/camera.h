@@ -12,6 +12,7 @@ struct Camera {
     Transform cameraToWorld;
     double fov = 90;               // degrees (perspective)
     double screenWindow[4] = {0, 0, 0, 0};  // xmin xmax ymin ymax; all zero -> derive from aspect
+    bool windowSpecified = false;           // set when the scene gives screenwindow/frameaspectratio
     double lensRadius = 0;         // thin-lens aperture radius (0 = pinhole)
     double focalDistance = 1e6;    // distance to the plane of focus
     int width = 640, height = 480;

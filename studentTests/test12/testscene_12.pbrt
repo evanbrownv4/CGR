@@ -1,0 +1,27 @@
+# testscene_12 (shading): Indirect illumination in a Cornell box
+# Closed Cornell box with red/green side walls and a small ceiling light, PBRT maxdepth 3 (two indirect bounces). Checks colour bleeding and indirect light in shadowed regions; noisier, so the tolerance is wider.
+LookAt 0 1 3.4   0 1 0   0 1 0
+Camera "perspective" "float fov" [40]
+Film "rgb" "integer xresolution" [160] "integer yresolution" [120] "string filename" "testsuite_ref_12.pfm"
+Sampler "independent" "integer pixelsamples" [512]
+PixelFilter "box"
+Integrator "path" "integer maxdepth" [3]
+WorldBegin
+AttributeBegin
+  AreaLightSource "diffuse" "rgb L" [18 16 12]
+  Material "diffuse" "rgb reflectance" [0 0 0]
+  Shape "bilinearmesh" "point3 P" [-0.3 1.99 -0.3   0.3 1.99 -0.3   -0.3 1.99 0.3   0.3 1.99 0.3]
+AttributeEnd
+Material "diffuse" "rgb reflectance" [0.75 0.75 0.75]
+Shape "bilinearmesh" "point3 P" [-1 0 -1   1 0 -1   -1 0 1   1 0 1]
+Shape "bilinearmesh" "point3 P" [-1 2 1   1 2 1   -1 2 -1   1 2 -1]
+Shape "bilinearmesh" "point3 P" [-1 0 -1   -1 2 -1   1 0 -1   1 2 -1]
+Material "diffuse" "rgb reflectance" [0.65 0.06 0.05]
+Shape "bilinearmesh" "point3 P" [-1 0 -1   -1 0 1   -1 2 -1   -1 2 1]
+Material "diffuse" "rgb reflectance" [0.12 0.5 0.08]
+Shape "bilinearmesh" "point3 P" [1 0 1   1 0 -1   1 2 1   1 2 -1]
+AttributeBegin
+  Translate -0.35 0.4 -0.3
+  Material "diffuse" "rgb reflectance" [0.75 0.75 0.75]
+  Shape "sphere" "float radius" [0.4]
+AttributeEnd

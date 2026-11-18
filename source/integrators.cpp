@@ -309,6 +309,9 @@ void renderImage(const Scene& scene, const Integrator& integrator, Image& out, R
                 }
             }
         }
+        local.primTests += tlPrimTests;
+        local.nodeVisits += tlNodeVisits;
+        tlPrimTests = tlNodeVisits = 0;
         std::lock_guard<std::mutex> lock(statsMutex);
         stats.add(local);
     };

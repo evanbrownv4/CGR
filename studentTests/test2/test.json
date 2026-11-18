@@ -1,0 +1,8 @@
+{
+  "name": "test2",
+  "category": "camera",
+  "title": "Triangle/quad intersection and depth ordering",
+  "description": "A green two-sided triangle mesh partly in front of a red sphere and a blue bilinear quad behind both. Checks triangle edges, shared mesh edges, quad intersection and that the nearest surface wins.",
+  "scene": "testscene_2.pbrt",
+  "max_mismatch_percent": 0.25
+}

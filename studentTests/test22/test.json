@@ -1,0 +1,11 @@
+{
+  "name": "test22",
+  "category": "error",
+  "title": "Out-of-range parameter: field of view",
+  "description": "Camera fov of 200 degrees (must be in (0, 180)).",
+  "scene": "testscene_22.pbrt",
+  "keywords": [
+    "fov"
+  ],
+  "line": 4
+}

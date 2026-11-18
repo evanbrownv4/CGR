@@ -1,0 +1,33 @@
+{
+  "name": "test10",
+  "category": "shading",
+  "title": "Coloured reflectances under a distant light",
+  "description": "Saturated red, green and blue diffuse spheres under a distant light. Checks the RGB albedo pipeline against PBRT's spectral upsampling (small differences are expected for saturated colours).",
+  "scene": "testscene_10.pbrt",
+  "ref_spp": 8192,
+  "radius": 2,
+  "rel_tol": 0.06,
+  "abs_tol": 0.005,
+  "pixels": [
+    {
+      "x": 24,
+      "y": 42,
+      "label": "blue sphere"
+    },
+    {
+      "x": 75,
+      "y": 41,
+      "label": "green sphere"
+    },
+    {
+      "x": 125,
+      "y": 41,
+      "label": "red sphere"
+    },
+    {
+      "x": 73,
+      "y": 93,
+      "label": "grey floor"
+    }
+  ]
+}

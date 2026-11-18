@@ -1,0 +1,12 @@
+{
+  "name": "test23",
+  "category": "error",
+  "title": "Unterminated string",
+  "description": "A quoted string that is never closed.",
+  "scene": "testscene_23.pbrt",
+  "keywords": [
+    "unterminated",
+    "string"
+  ],
+  "line": 12
+}

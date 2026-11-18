@@ -5,7 +5,6 @@ General: output image and .log file written to the output/ folder; executable bu
 General: logging of syntax errors, unsupported features, unused parameters, missing files and out-of-range values with file:line, without crashing
 General: profiling in the log (parse, BVH build, render, tone mapping/output timings; ray counts and Mrays/s)
 General: multithreaded rendering (std::thread, row-based work distribution)
-General: BVH acceleration structure (binned SAH) with an option to disable it (--nobvh / Accelerator "none")
 General: image comparison tool (--compare: RMSE, per-channel RMSE, PSNR, region RMSE, per-pixel values, difference image)
 WSRT: specular reflection (recursive ideal mirror reflection up to the maximum ray-tree depth)
 WSRT: specular refraction through dielectrics (Snell's law, exact Fresnel equations, total internal reflection)
@@ -29,3 +28,11 @@ Antialiasing: supersampling with n x n regular-grid, jittered-stratified, unifor
 Sampler comparison: uniform random, regular grid (cell centres) and Halton (bases 2,3, optional Cranley-Patterson rotation) area light sampling
 Sampler comparison: high-sample stratified reference render and RMSE evaluation of linear (PFM) images
 DRT parameter study: branching factor (BF) and maximum depth (MD) configurable per scene; four study scenes provided
+Acceleration: bounding volume hierarchy over primitive AABBs, binned SAH build (16 bins), median-split fallback, 2-primitive leaves
+Acceleration: ordered traversal (nearer child first, ray interval shrinks at each hit) and early-exit shadow-ray traversal
+Acceleration: brute-force mode for comparison (--nobvh or Accelerator "none"); BVH statistics and ray-primitive tests / node visits per ray in the log
+Acceleration: best-case (4096 spheres), worst-case (3000 overlapping sliver triangles) and complex (~350 objects, ~280k triangles, 5 lights) scenes, with an automated timing table (output/acc_timings.txt)
+Test suite: 30 self-contained tests in studentTests/ (7 camera/intersection, 6 shading, 17 error handling), each with a PBRT-v4-compatible scene, test.json pass criteria and a run script
+Test suite: runAllTests.py/.sh (Python standard library only): renders, compares against PBRT-v4 references (pixel label masks, windowed linear radiance at chosen pixels, diagnostic keywords), writes a log and CSV; works with other renderers via a command template
+Test suite: makeReferences.sh generates the PBRT-v4 reference images and logs
+PBRT compatibility: Integrator "path" emulated (maxdepth converted), .pfm Film output, --resolution override, --radius pixel averaging in --compare

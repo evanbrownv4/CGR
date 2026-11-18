@@ -1,0 +1,11 @@
+{
+  "name": "test14",
+  "category": "error",
+  "title": "Unknown directive",
+  "description": "A misspelled directive ('Shpae'). The renderer must name the unknown directive and continue.",
+  "scene": "testscene_14.pbrt",
+  "keywords": [
+    "Shpae"
+  ],
+  "line": 12
+}

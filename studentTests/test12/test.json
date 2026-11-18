@@ -1,0 +1,38 @@
+{
+  "name": "test12",
+  "category": "shading",
+  "title": "Indirect illumination in a Cornell box",
+  "description": "Closed Cornell box with red/green side walls and a small ceiling light, PBRT maxdepth 3 (two indirect bounces). Checks colour bleeding and indirect light in shadowed regions; noisier, so the tolerance is wider.",
+  "scene": "testscene_12.pbrt",
+  "ref_spp": 8192,
+  "radius": 2,
+  "rel_tol": 0.1,
+  "abs_tol": 0.015,
+  "pixels": [
+    {
+      "x": 82,
+      "y": 61,
+      "label": "back wall"
+    },
+    {
+      "x": 32,
+      "y": 54,
+      "label": "left (green) wall"
+    },
+    {
+      "x": 127,
+      "y": 61,
+      "label": "right (red) wall"
+    },
+    {
+      "x": 78,
+      "y": 37,
+      "label": "ceiling, lit only indirectly"
+    },
+    {
+      "x": 102,
+      "y": 89,
+      "label": "sphere, lit side"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "test24",
+  "category": "error",
+  "title": "Missing closing bracket",
+  "description": "A parameter value list opened with '[' but never closed.",
+  "scene": "testscene_24.pbrt",
+  "keywords": [
+    "unterminated",
+    "bracket",
+    "'['",
+    "missing ']'"
+  ],
+  "line": 12
+}

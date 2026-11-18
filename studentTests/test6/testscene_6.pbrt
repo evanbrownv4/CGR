@@ -1,0 +1,32 @@
+# testscene_6 (camera): Transform semantics
+# Camera mirrored with Scale -1 1 1 before LookAt, nested AttributeBegin blocks, Rotate about an oblique axis, non-uniform Scale (an ellipsoid) and a ConcatTransform shear. A different matrix convention moves or reshapes the objects.
+Scale -1 1 1
+LookAt 1 2 9   0 0 0   0 1 0
+Camera "perspective" "float fov" [42]
+Film "rgb" "integer xresolution" [200] "integer yresolution" [150] "string filename" "testsuite_ref_6.pfm"
+Sampler "stratified" "integer xsamples" [1] "integer ysamples" [1] "bool jitter" false
+PixelFilter "box"
+Integrator "path" "integer maxdepth" [1]
+WorldBegin
+Material "diffuse" "rgb reflectance" [0 0 0]
+AttributeBegin
+  Translate 2 0 0
+  Rotate 30 1 1 0
+  AttributeBegin
+    Scale 2 0.6 1
+    AreaLightSource "diffuse" "rgb L" [1 0 0]
+    Shape "sphere" "float radius" [1]
+  AttributeEnd
+AttributeEnd
+AttributeBegin
+  ConcatTransform [1 0 0 0   0.4 1 0 0   0 0 1 0   -2.5 1 0 1]
+  AreaLightSource "diffuse" "rgb L" [0 1 0] "bool twosided" true
+  Shape "trianglemesh" "integer indices" [0 1 2 0 2 3] "point3 P" [-1 -1 0  1 -1 0  1 1 0  -1 1 0]
+AttributeEnd
+AttributeBegin
+  Translate 0 -2 1
+  Rotate -60 0 0 1
+  Scale 0.5 1.5 0.5
+  AreaLightSource "diffuse" "rgb L" [0 0 1]
+  Shape "sphere" "float radius" [1]
+AttributeEnd
