@@ -75,7 +75,16 @@ PBRT=/path/to/pbrt ./makeReferences.sh test9 test12                         # se
 
 * Camera tests render at 1 sample per pixel; shading tests at `ref_spp` (8192), so the
   reference is almost noise free.
-* `IMGTOOL` is optional and only used to write the `.png` previews.
+* `IMGTOOL` is optional and only used to write the `.png` previews, with
+  `imgtool convert in.pfm --outfile out.png`. It is PBRT-v4's own `imgtool`, built next to `pbrt`
+  but often not installed with it. If `IMGTOOL` is not set, the script looks next to the `pbrt`
+  executable and in `~/pbrt-v4/build/`. Do not use the `imgtool` from the Ubuntu package
+  `mame-tools`: it is an unrelated program.
+* To write previews for references that already exist, without re-rendering:
+
+  ```bash
+  IMGTOOL=/path/to/imgtool ./makeReferences.sh --previews
+  ```
 * Tests whose reference image is missing are reported as SKIP.
 
 ## Known differences between CGR26_renderer and PBRT-v4
