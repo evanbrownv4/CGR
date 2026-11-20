@@ -33,7 +33,7 @@ static void usage() {
         "    --seed <n>         random seed\n"
         "    --nobvh            disable the BVH (brute-force intersection)\n"
         "    --resolution <w> <h>  override the film resolution\n"
-        "    --ctrav <c>        SAH traversal cost relative to one primitive test (default 0.125)\n"
+        "    --ctrav <c>        SAH traversal cost relative to one primitive test (default 0.625)\n"
         "    --maxleaf <n>      largest node that may become a BVH leaf (default 4)\n"
         "    --hdr              also write linear radiance as <name>.pfm\n"
         "    --quiet            only print warnings and errors\n"

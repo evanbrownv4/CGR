@@ -40,7 +40,7 @@ struct RenderSettings {
     bool writeHDR = false;           // additionally write linear radiance as .pfm
 
     bool useBVH = true;
-    double bvhTraversalCost = 0.125; // SAH C_trav, relative to one ray-primitive test (C_isect = 1)
+    double bvhTraversalCost = 0.625; // SAH C_trav, relative to one ray-primitive test (C_isect = 1)
     int bvhMaxLeafPrims = 4;         // nodes with at most this many primitives may become leaves
     int threads = 0;                 // 0 = hardware concurrency
 };
@@ -61,7 +61,7 @@ extern thread_local uint64_t tlPrimTests, tlNodeVisits;
 
 class BVH {
 public:
-    void build(const std::vector<const Primitive*>& prims, double traversalCost = 0.125, int maxLeafPrims = 4);
+    void build(const std::vector<const Primitive*>& prims, double traversalCost = 0.625, int maxLeafPrims = 4);
     bool intersect(const Ray& r, double tmin, double tmax, Hit& h) const;
     bool occluded(const Ray& r, double tmin, double tmax) const;
     size_t nodeCount() const { return nodes_.size(); }
@@ -85,7 +85,7 @@ private:
     std::vector<Node> nodes_;
     std::vector<const Primitive*> prims_;
     int depth_ = 0;
-    double travCost_ = 0.125;
+    double travCost_ = 0.625;
     int maxLeafPrims_ = 4;
 };
 
