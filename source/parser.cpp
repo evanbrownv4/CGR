@@ -699,6 +699,15 @@ bool Parser::parseFile(const std::string& path, int includeDepth) {
                     log_.info(w + ": acceleration structure disabled (brute force intersection)");
                 } else if (s1 != "bvh") {
                     log_.warning(w + ": accelerator \"" + s1 + "\" not supported; using BVH");
+                } else {
+                    for (auto& p : ps.params) p.used = false;
+                    double tc = ps.getFloat("traversalcost", scene_.settings.bvhTraversalCost);
+                    int ml = ps.getInt("maxleafprims", scene_.settings.bvhMaxLeafPrims);
+                    if (tc < 0) log_.error(w + ": traversalcost must be non-negative; ignored");
+                    else scene_.settings.bvhTraversalCost = tc;
+                    if (ml < 1 || ml > 64) log_.error(w + ": maxleafprims must be in [1, 64]; ignored");
+                    else scene_.settings.bvhMaxLeafPrims = ml;
+                    ps.reportUnused();
                 }
             }
         } else if (d == "WorldBegin") {

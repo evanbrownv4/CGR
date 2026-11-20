@@ -5,6 +5,7 @@
 //
 // See README.md for the full list of options.
 
+#include <cstdlib>
 #include <cstring>
 #include <ctime>
 #include <filesystem>
@@ -32,6 +33,8 @@ static void usage() {
         "    --seed <n>         random seed\n"
         "    --nobvh            disable the BVH (brute-force intersection)\n"
         "    --resolution <w> <h>  override the film resolution\n"
+        "    --ctrav <c>        SAH traversal cost relative to one primitive test (default 0.125)\n"
+        "    --maxleaf <n>      largest node that may become a BVH leaf (default 4)\n"
         "    --hdr              also write linear radiance as <name>.pfm\n"
         "    --quiet            only print warnings and errors\n"
         "  CGR26_renderer --compare <reference> <test> [options]   (PPM or PFM images)\n"
@@ -214,6 +217,8 @@ int main(int argc, char** argv) {
     std::string outputOverride;
     int sppOverride = -1, threads = 0, seed = -1, resW = -1, resH = -1;
     bool noBVH = false, hdr = false, quiet = false;
+    double ctrav = -1;
+    int maxLeaf = -1;
     for (int i = 2; i < argc; ++i) {
         std::string a = argv[i];
         auto needInt = [&](int& v) {
@@ -229,6 +234,20 @@ int main(int argc, char** argv) {
         else if (a == "--threads") needInt(threads);
         else if (a == "--seed") needInt(seed);
         else if (a == "--nobvh") noBVH = true;
+        else if (a == "--ctrav" && i + 1 < argc) {
+            char* end = nullptr;
+            ctrav = std::strtod(argv[++i], &end);
+            if (*end != '\0' || ctrav < 0) {
+                std::cerr << "error: --ctrav expects a non-negative number\n";
+                return 2;
+            }
+        } else if (a == "--maxleaf") {
+            needInt(maxLeaf);
+            if (maxLeaf < 1 || maxLeaf > 64) {
+                std::cerr << "error: --maxleaf must be in [1, 64]\n";
+                return 2;
+            }
+        }
         else if (a == "--resolution") {
             needInt(resW);
             needInt(resH);
@@ -282,6 +301,8 @@ int main(int argc, char** argv) {
     if (threads > 0) s.threads = threads;
     if (seed >= 0) s.seed = (uint64_t)seed;
     if (noBVH) s.useBVH = false;
+    if (ctrav >= 0) s.bvhTraversalCost = ctrav;
+    if (maxLeaf > 0) s.bvhMaxLeafPrims = maxLeaf;
     if (hdr) s.writeHDR = true;
     if (resW > 0) {
         s.width = scene.camera.width = resW;
@@ -310,7 +331,9 @@ int main(int argc, char** argv) {
     if (s.useBVH)
         log.info("BVH: " + std::to_string(scene.boundedCount()) + " bounded primitives, " +
                  std::to_string(scene.bvh().nodeCount()) + " nodes, " + std::to_string(scene.bvh().leafCount()) +
-                 " leaves, depth " + std::to_string(scene.bvh().depth()));
+                 " leaves, depth " + std::to_string(scene.bvh().depth()) + " (SAH C_trav " +
+                 fmt(s.bvhTraversalCost, 3) + ", leaves of up to " + std::to_string(s.bvhMaxLeafPrims) +
+                 " primitives considered)");
 
     std::ostringstream cfg;
     cfg << "integrator: " << s.integrator << ", maxdepth " << s.maxDepth;

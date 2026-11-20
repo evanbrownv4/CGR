@@ -7,7 +7,9 @@ thread_local uint64_t tlPrimTests = 0, tlNodeVisits = 0;
 // ------------------------------------------------------------------- BVH ---
 // Binned surface-area-heuristic build over primitive bounding boxes.
 
-void BVH::build(const std::vector<const Primitive*>& prims) {
+void BVH::build(const std::vector<const Primitive*>& prims, double traversalCost, int maxLeafPrims) {
+    travCost_ = traversalCost;
+    maxLeafPrims_ = maxLeafPrims;
     items_.clear();
     for (const Primitive* p : prims) {
         AABB b = p->bounds();
@@ -68,10 +70,12 @@ int BVH::buildRec(int first, int last, int depth) {
             for (int i = 0; i <= s; ++i) { b0.expand(bins[i].box); c0 += bins[i].count; }
             for (int i = s + 1; i < NB; ++i) { b1.expand(bins[i].box); c1 += bins[i].count; }
             if (c0 == 0 || c1 == 0) continue;
-            double cost = 0.125 + (c0 * b0.surfaceArea() + c1 * b1.surfaceArea()) / std::max(box.surfaceArea(), 1e-300);
+            // SAH: C_trav + sum over children of P(hit child | hit parent) * N_child * C_isect,
+            // with P = SA(child) / SA(parent) and C_isect = 1.
+            double cost = travCost_ + (c0 * b0.surfaceArea() + c1 * b1.surfaceArea()) / std::max(box.surfaceArea(), 1e-300);
             if (cost < bestCost) { bestCost = cost; bestSplit = s; }
         }
-        if (n <= 4 && bestCost >= n) {
+        if (n <= maxLeafPrims_ && bestCost >= n) {  // a leaf costs N_leaf * C_isect
             nodes_[idx].first = first;
             nodes_[idx].count = n;
             return idx;
@@ -172,7 +176,7 @@ void Scene::prepare() {
             unbounded_.push_back(p.get());
         }
     }
-    if (settings.useBVH) bvh_.build(bounded_);
+    if (settings.useBVH) bvh_.build(bounded_, settings.bvhTraversalCost, settings.bvhMaxLeafPrims);
     for (auto& l : areaLights) l->finalize();
 }
 
