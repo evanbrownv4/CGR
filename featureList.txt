@@ -28,7 +28,7 @@ Antialiasing: supersampling with n x n regular-grid, jittered-stratified, unifor
 Sampler comparison: uniform random, regular grid (cell centres) and Halton (bases 2,3, optional Cranley-Patterson rotation) area light sampling
 Sampler comparison: high-sample stratified reference render and RMSE evaluation of linear (PFM) images
 DRT parameter study: branching factor (BF) and maximum depth (MD) configurable per scene; four study scenes provided
-Acceleration: bounding volume hierarchy over primitive AABBs, binned SAH build (16 bins, traversal cost C_trav = 5/8 of a primitive test, chosen by a sweep over 1/8..8/8), median-split fallback, leaves of up to 4 primitives (both configurable)
+Acceleration: bounding volume hierarchy over primitive AABBs, binned SAH build (16 bins, SAH cost C_t + C_i (N_L SA_L + N_R SA_R) / SA_parent with C_i = 1 and C_t = 1/2 as in PBRT-v4; a sweep over C_t = 1/8..8/8 showed no measurable difference), median-split fallback, leaves of up to 4 primitives (both configurable)
 Acceleration: ordered traversal (nearer child first, ray interval shrinks at each hit) and early-exit shadow-ray traversal
 Acceleration: brute-force mode for comparison (--nobvh or Accelerator "none"); BVH statistics and ray-primitive tests / node visits per ray in the log
 Acceleration: best-case (4096 spheres), worst-case (3000 overlapping sliver triangles) and complex (~350 objects, ~280k triangles, 5 lights) scenes, with an automated timing table (output/acc_timings.txt)

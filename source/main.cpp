@@ -33,7 +33,7 @@ static void usage() {
         "    --seed <n>         random seed\n"
         "    --nobvh            disable the BVH (brute-force intersection)\n"
         "    --resolution <w> <h>  override the film resolution\n"
-        "    --ctrav <c>        SAH traversal cost relative to one primitive test (default 0.625)\n"
+        "    --ctrav <c>        SAH traversal cost relative to one primitive test (default 0.5)\n"
         "    --maxleaf <n>      largest node that may become a BVH leaf (default 4)\n"
         "    --hdr              also write linear radiance as <name>.pfm\n"
         "    --quiet            only print warnings and errors\n"
@@ -331,7 +331,7 @@ int main(int argc, char** argv) {
     if (s.useBVH)
         log.info("BVH: " + std::to_string(scene.boundedCount()) + " bounded primitives, " +
                  std::to_string(scene.bvh().nodeCount()) + " nodes, " + std::to_string(scene.bvh().leafCount()) +
-                 " leaves, depth " + std::to_string(scene.bvh().depth()) + " (SAH C_trav " +
+                 " leaves, depth " + std::to_string(scene.bvh().depth()) + " (SAH C_t " +
                  fmt(s.bvhTraversalCost, 3) + ", leaves of up to " + std::to_string(s.bvhMaxLeafPrims) +
                  " primitives considered)");
 

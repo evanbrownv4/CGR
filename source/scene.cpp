@@ -62,6 +62,9 @@ int BVH::buildRec(int first, int last, int depth) {
             bins[b].count++;
             bins[b].box.expand(items_[i].box);
         }
+        const double Ct = travCost_;            // C_t: one traversal step (default C_i / 2)
+        const double Ci = kSahIntersectionCost;  // C_i: one ray-primitive test (= 1, the unit)
+        const double SAp = std::max(box.surfaceArea(), 1e-300);
         double bestCost = INF;
         int bestSplit = -1;
         for (int s = 0; s < NB - 1; ++s) {
@@ -70,12 +73,12 @@ int BVH::buildRec(int first, int last, int depth) {
             for (int i = 0; i <= s; ++i) { b0.expand(bins[i].box); c0 += bins[i].count; }
             for (int i = s + 1; i < NB; ++i) { b1.expand(bins[i].box); c1 += bins[i].count; }
             if (c0 == 0 || c1 == 0) continue;
-            // SAH: C_trav + sum over children of P(hit child | hit parent) * N_child * C_isect,
-            // with P = SA(child) / SA(parent) and C_isect = 1.
-            double cost = travCost_ + (c0 * b0.surfaceArea() + c1 * b1.surfaceArea()) / std::max(box.surfaceArea(), 1e-300);
+            // SAH: C_t + sum over children of P(hit child | hit parent) * N_child * C_i,
+            // with P = SA(child) / SA(parent).
+            double cost = Ct + Ci * (c0 * b0.surfaceArea() + c1 * b1.surfaceArea()) / SAp;
             if (cost < bestCost) { bestCost = cost; bestSplit = s; }
         }
-        if (n <= maxLeafPrims_ && bestCost >= n) {  // a leaf costs N_leaf * C_isect
+        if (n <= maxLeafPrims_ && bestCost >= Ci * n) {  // a leaf costs C_i * N
             nodes_[idx].first = first;
             nodes_[idx].count = n;
             return idx;
