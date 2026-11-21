@@ -1,0 +1,56 @@
+\relax 
+\@writefile{toc}{\contentsline {section}{\numberline {1}Acceleration Data Structure -- Bounding Volume Hierarchy}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Key Design Decision}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.1}Class Structure}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.2}Algorithm Choices}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.3}Parameter Selection}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Difficulties Encountered}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Test Cases}{3}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Acceleration benchmark (render time only, 4 threads).\relax }}{3}{}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:accel_benchmark}{{1}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.1}Best case speedup -- \texttt  {acc\_best}}{3}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Render of the \texttt  {acc\_best} scene ($64 \times 64$ grid of non-overlapping spheres above a plane).\relax }}{3}{}\protected@file@percent }
+\newlabel{fig:acc_best_png}{{1}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.2}Worst case speedup -- \texttt  {acc\_worst}}{4}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Render of the \texttt  {acc\_worst} scene (3{,}000 overlapping triangles sharing a common centroid).\relax }}{4}{}\protected@file@percent }
+\newlabel{fig:acc_worst_png}{{2}{4}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.3}Complex example -- \texttt  {acc\_complex}}{4}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Render of the \texttt  {acc\_complex} scene (280{,}656 primitives across meshes and spheres under 5 light sources).\relax }}{5}{}\protected@file@percent }
+\newlabel{fig:acc_complex_png}{{3}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Observations}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Test Suite}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Key design decisions}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Camera and Intersections Tests}{6}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Camera and intersection tests (\texttt  {testscene\_1}--\texttt  {7}) against PBRT-v4.\relax }}{6}{}\protected@file@percent }
+\newlabel{tab:camera_tests}{{2}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Shading Tests}{6}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Comparison of \texttt  {testscene\_6} (mirrored camera, oblique rotation, non-uniform scaling, and shear): silhouettes match identically across every pixel (0 mismatched labels), despite the visible emitter colour shift from PBRT-v4's spectral conversion.\relax }}{7}{}\protected@file@percent }
+\newlabel{fig:test6}{{4}{7}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Shading tests (\texttt  {testscene\_8}--\texttt  {13}), pass limits, and errors against 8{,}192-spp PBRT-v4 references.\relax }}{7}{}\protected@file@percent }
+\newlabel{tab:shading_tests}{{3}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Comparison of \texttt  {testscene\_13} (glass refraction and Fresnel): the diffuse floor matches PBRT-v4 exactly ($0.297$), while the missing bright caustic patch beneath the sphere ($0.015$ vs $0.916$ at $(79, 93)$) and $\approx 5\%$ darker view through the glass reflect our renderer's default exclusion of caustics.\relax }}{8}{}\protected@file@percent }
+\newlabel{fig:test13}{{5}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Error Handling Tests}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Difficulties encountered}{8}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Error-handling tests (\texttt  {testscene\_14}--\texttt  {30}): our renderer versus PBRT-v4. Our renderer passed all 17 tests and reported the exact faulty line in every case.\relax }}{9}{}\protected@file@percent }
+\newlabel{tab:error_tests}{{4}{9}}
+\newlabel{lst:error_logs}{{1}{9}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}Representative error log outputs from \texttt  {cgr26\_expected\_N.log} showing graceful detection and exact line reporting across syntax, transform, file-loading, and geometry faults.}{9}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Observations}{10}{}\protected@file@percent }
+\gdef \LT@i {\LT@entry 
+    {5}{42.26549pt}\LT@entry 
+    {5}{42.5949pt}\LT@entry 
+    {1}{22.49095pt}\LT@entry 
+    {5}{23.00842pt}\LT@entry 
+    {5}{30.98068pt}\LT@entry 
+    {5}{30.98068pt}\LT@entry 
+    {1}{29.43399pt}\LT@entry 
+    {5}{26.99455pt}\LT@entry 
+    {5}{30.98068pt}\LT@entry 
+    {1}{33.8837pt}\LT@entry 
+    {1}{31.2097pt}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}BVH Parameter Tuning Results}{11}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces BVH parameter sweep ($C_t$ and maximum leaf size) across all three acceleration scenes.\relax }}{11}{}\protected@file@percent }
+\newlabel{tab:param_tuning_test}{{5}{11}}
+\gdef \@abspage@last{11}
