@@ -97,7 +97,8 @@ The script also writes two summary files:
 
 * `output/sampler_rmse.txt`: the RMSE of each sampler render against the reference
 * `output/acc_timings.txt`: render time with and without the BVH for `acc_best`, `acc_worst`
-  and `acc_complex`, with the speedup and the ray-primitive tests per ray. Brute force on
+  and `acc_complex`, with the speedup, the ray-primitive tests per ray (BVH and brute force) and
+  the average number of BVH nodes visited per ray. Brute force on
   `acc_complex` (~280k triangles) is far too slow at full size, so it is timed at 64×40.
 
 ### Image comparison tool
