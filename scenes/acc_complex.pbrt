@@ -1,4 +1,4 @@
-# acc_complex: a sculpture gallery with ~350 objects (~280k triangles): 120 plinths, each
+# acc_complex: a sculpture gallery with 277 objects (~280k triangles): 120 plinths, each
 # carrying a sphere, a low-poly sphere, a mug, a vase or a torus, under two area lights
 # and three point lights, rendered with the DRT. Brute-force intersection would
 # test every primitive for every camera, shadow and indirect ray.
