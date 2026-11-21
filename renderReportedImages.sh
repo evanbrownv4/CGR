@@ -45,7 +45,7 @@ if [ -z "$filter" ] || [[ "$filter" == acc* ]]; then
     table=output/acc_timings.txt
     {
         echo "Acceleration benchmark (render time only, $(nproc) threads)"
-        printf "%-12s %-10s %10s %12s %12s %9s %14s %14s\n" scene resolution primitives "BVH (s)" "brute (s)" speedup "tests/ray BVH" "tests/ray brute"
+        printf "%-12s %-10s %10s %12s %12s %9s %14s %14s %14s\n" scene resolution primitives "BVH (s)" "brute (s)" speedup "tests/ray BVH" "tests/ray brute" "nodes/ray BVH"
     } > "$table"
     for spec in "acc_best 480 360" "acc_worst 480 360" "acc_complex 64 40"; do
         set -- $spec
@@ -62,8 +62,9 @@ if [ -z "$filter" ] || [[ "$filter" == acc* ]]; then
         tf=$(get brute 's/.*render: \([0-9.]*\) s.*/\1/p')
         pb=$(get bvh 's/.*tests (\([0-9.]*\) per ray).*/\1/p')
         pf=$(get brute 's/.*tests (\([0-9.]*\) per ray).*/\1/p')
+        nb=$(get bvh 's/.*node visits (\([0-9.]*\) per ray).*/\1/p')
         speed=$(awk -v a="$tf" -v b="$tb" 'BEGIN { if (b > 0) printf "%.2fx", a / b; else print "-" }')
-        printf "%-12s %-10s %10s %12s %12s %9s %14s %14s\n" "$scene" "${w}x${h}" "$prims" "$tb" "$tf" "$speed" "$pb" "$pf" >> "$table"
+        printf "%-12s %-10s %10s %12s %12s %9s %14s %14s %14s\n" "$scene" "${w}x${h}" "$prims" "$tb" "$tf" "$speed" "$pb" "$pf" "$nb" >> "$table"
     done
     echo "== Acceleration benchmark ($table) =="
     cat "$table"
