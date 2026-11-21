@@ -13,6 +13,11 @@
 #include "sampling.h"
 #include "shapes.h"
 
+// SAH cost model for the BVH build, in units of one ray-primitive intersection test:
+//   cost(split) = C_t + C_i * (N_L * SA(L) + N_R * SA(R)) / SA(parent),  cost(leaf) = C_i * N.
+constexpr double kSahIntersectionCost = 1.0;  // C_i: the unit
+constexpr double kSahTraversalCost = 0.5;     // C_t = C_i / 2, the value PBRT-v4 uses
+
 struct RenderSettings {
     // Integrator ("whitted" or "distributed")
     std::string integrator = "whitted";
@@ -40,7 +45,7 @@ struct RenderSettings {
     bool writeHDR = false;           // additionally write linear radiance as .pfm
 
     bool useBVH = true;
-    double bvhTraversalCost = 0.625; // SAH C_trav, relative to one ray-primitive test (C_isect = 1)
+    double bvhTraversalCost = kSahTraversalCost;  // SAH C_t (overridable for experiments)
     int bvhMaxLeafPrims = 4;         // nodes with at most this many primitives may become leaves
     int threads = 0;                 // 0 = hardware concurrency
 };
@@ -61,7 +66,8 @@ extern thread_local uint64_t tlPrimTests, tlNodeVisits;
 
 class BVH {
 public:
-    void build(const std::vector<const Primitive*>& prims, double traversalCost = 0.625, int maxLeafPrims = 4);
+    void build(const std::vector<const Primitive*>& prims, double traversalCost = kSahTraversalCost,
+               int maxLeafPrims = 4);
     bool intersect(const Ray& r, double tmin, double tmax, Hit& h) const;
     bool occluded(const Ray& r, double tmin, double tmax) const;
     size_t nodeCount() const { return nodes_.size(); }
@@ -85,7 +91,7 @@ private:
     std::vector<Node> nodes_;
     std::vector<const Primitive*> prims_;
     int depth_ = 0;
-    double travCost_ = 0.625;
+    double travCost_ = kSahTraversalCost;
     int maxLeafPrims_ = 4;
 };
 
