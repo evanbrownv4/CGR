@@ -14,7 +14,7 @@ if [ ! -x "$exe" ] || ! "$exe" --help 2>&1 | grep -q -- "--ctrav"; then
 fi
 csv=output/ctrav_sweep.csv
 echo "scene,resolution,maxleaf,ctrav,nodes,leaves,depth,build_s,tests_per_ray,nodes_per_ray,render_s_best" > "$csv"
-for spec in "acc_best 1280 960" "acc_worst 480 360" "acc_complex 640 400" "DRT_simple 320 240"; do
+for spec in "acc_best 1280 960" "acc_worst 640 480" "acc_complex 640 480"; do
     set -- $spec
     scene=$1; w=$2; h=$3
     for maxleaf in 4 16; do

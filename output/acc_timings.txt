@@ -1,5 +1,5 @@
 Acceleration benchmark (render time only, 4 threads)
-scene        resolution primitives      BVH (s)    brute (s)   speedup  tests/ray BVH tests/ray brute  nodes/ray BVH
-acc_best     480x360          4097       0.0232       4.1028   176.84x           2.92        3980.83          18.87
-acc_worst    480x360          3000       2.8875       2.4485     0.85x         904.82        2745.14        2433.05
-acc_complex  64x40          280656       0.0301     146.8944  4880.21x           2.61      262213.98          18.66
+scene        resolution primitives      BVH (s)    brute (s)   speedup  tests/ray BVH tests/ray brute
+acc_best     480x360          4097       0.0277       4.5187   163.13x           2.92        3980.83
+acc_worst    480x360          3000       3.1079       2.5817     0.83x         904.82        2745.14
+acc_complex  64x40          280656       0.0202     149.8594  7418.78x           2.61      262213.98
