@@ -1,0 +1,8 @@
+pbrt version 4 (built Oct 15 2026 at 18:43:11)
+Copyright (c)1998-2021 Matt Pharr, Wenzel Jakob, and Greg Humphreys.
+The source code to pbrt (but *not* the book contents) is covered by the Apache 2.0 License.
+See the file LICENSE.txt for the conditions of the license.
+[1m[31mWarning[0m: testscene_28.pbrt:5:0: Output filename supplied on command line, "testsuite_ref_28.pfm" will override filename provided in scene description file, "testsuite_ref_28.pfm".
+[1m[31mError[0m: testscene_28.pbrt:12:0: trianglemesh has out of-bounds vertex index 7 (3 "P" values were given. Discarding this mesh.
+studentTests/makeReferences.sh: line 30: 179533 Segmentation fault      (core dumped) "$PBRT" "${args[@]}" --outfile "testsuite_ref_$n.pfm" "testscene_$n.pbrt"
+pbrt exit code: 139 (scene spp, 0 s)

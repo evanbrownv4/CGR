@@ -1,0 +1,31 @@
+pbrt version 4 (built Oct 15 2026 at 18:43:11)
+Copyright (c)1998-2021 Matt Pharr, Wenzel Jakob, and Greg Humphreys.
+The source code to pbrt (but *not* the book contents) is covered by the Apache 2.0 License.
+See the file LICENSE.txt for the conditions of the license.
+[1m[31mWarning[0m: testscene_17.pbrt:5:0: Output filename supplied on command line, "testsuite_ref_17.pfm" will override filename provided in scene description file, "testsuite_ref_17.pfm".
+Rendering: [                                           ] [ tid 179342 @     0.000s interaction.h:223 ] FATAL Check failed: Dot(n, shading.n) >= 0. with Dot(n, shading.n) = NaN, 0. = 0
+(/usr/local/bin/pbrt                     )	0x0x60df3f1d27da - pbrt::PrintStackTrace() + 0x3a
+(/usr/local/bin/pbrt                     )	0x0x60df3f1d2a76 - pbrt::CheckCallbackScope::Fail() + 0x26
+(/usr/local/bin/pbrt                     )	0x0x60df3f23e3c6 - pbrt::LogFatal(pbrt::LogLevel, char const*, int, char const*) + 0xf6
+(/usr/local/bin/pbrt                     )	0x0x60df3f1ccff3 - void pbrt::LogFatal<char const (&) [18], char const (&) [3], char const (&) [18], float&, char const (&) [3], double&>(pbrt::LogLevel, char const*, int, char const*, char const (&) [18], char const (&) [3], char const (&) [18], float&, char const (&) [3], double&) + 0x73
+(/usr/local/bin/pbrt                     )	0x0x60df3f1c22a4 - pbrt::SimplePrimitive::Intersect(pbrt::Ray const&, float) const + 0x9d4
+(/usr/local/bin/pbrt                     )	0x0x60df3f1c3725 - pbrt::Primitive::Intersect(pbrt::Ray const&, float) const + 0x85
+(/usr/local/bin/pbrt                     )	0x0x60df3f138a01 - pbrt::BVHAggregate::Intersect(pbrt::Ray const&, float) const + 0x301
+(/usr/local/bin/pbrt                     )	0x0x60df3f1c371d - pbrt::Primitive::Intersect(pbrt::Ray const&, float) const + 0x7d
+(/usr/local/bin/pbrt                     )	0x0x60df3f161f47 - pbrt::PathIntegrator::Li(pbrt::RayDifferential, pbrt::SampledWavelengths&, pbrt::Sampler, pbrt::ScratchBuffer&, pbrt::VisibleSurface*) const + 0x527
+(/usr/local/bin/pbrt                     )	0x0x60df3f15e5cb - pbrt::RayIntegrator::EvaluatePixelSample(pbrt::Point2<int>, int, pbrt::Sampler, pbrt::ScratchBuffer&) + 0x34b
+(/usr/local/bin/pbrt                     )	0x0x60df3f194ca0 - (unknown) + 0x2d9ca0
+(/usr/local/bin/pbrt                     )	0x0x60df3f2814d1 - pbrt::ParallelForLoop2D::RunStep(std::unique_lock<std::mutex>*) + 0x1b1
+(/usr/local/bin/pbrt                     )	0x0x60df3f27fe15 - pbrt::ThreadPool::WorkOrWait(std::unique_lock<std::mutex>*, bool) + 0x55
+(/usr/local/bin/pbrt                     )	0x0x60df3f28116c - pbrt::ParallelFor2D(pbrt::Bounds2<int> const&, std::function<void (pbrt::Bounds2<int>)>) + 0x21c
+(/usr/local/bin/pbrt                     )	0x0x60df3f1904dd - pbrt::ImageTileIntegrator::Render() + 0x56d
+(/usr/local/bin/pbrt                     )	0x0x60df3f1cebf2 - pbrt::RenderCPU(pbrt::BasicScene&) + 0x862
+(/usr/local/bin/pbrt                     )	0x0x60df3f03a6b4 - main + 0x1b04
+(/lib/x86_64-linux-gnu/libc.so.6         )	0x0x7dac5da29d90 - (unknown) + 0x29d90
+(/lib/x86_64-linux-gnu/libc.so.6         )	0x0x7dac5da29e40 - __libc_start_main + 0x80
+(/usr/local/bin/pbrt                     )	0x0x60df3f042895 - _start + 0x25
+Rendering failed at pixel (15, 11) sample 0. Debug with "--debugstart 15,11,0"
+
+
+studentTests/makeReferences.sh: line 30: 179342 Aborted                 (core dumped) "$PBRT" "${args[@]}" --outfile "testsuite_ref_$n.pfm" "testscene_$n.pbrt"
+pbrt exit code: 134 (scene spp, 0 s)

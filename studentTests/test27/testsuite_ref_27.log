@@ -1,0 +1,25 @@
+pbrt version 4 (built Oct 15 2026 at 18:43:11)
+Copyright (c)1998-2021 Matt Pharr, Wenzel Jakob, and Greg Humphreys.
+The source code to pbrt (but *not* the book contents) is covered by the Apache 2.0 License.
+See the file LICENSE.txt for the conditions of the license.
+[1m[31mWarning[0m: testscene_27.pbrt:5:0: Output filename supplied on command line, "testsuite_ref_27.pfm" will override filename provided in scene description file, "testsuite_ref_27.pfm".
+[ tid 179517 @     0.000s film.h:191 ] FATAL Check failed: pixelBounds.pMin.x >= 0 with pixelBounds.pMin.x = -100, 0 = 0
+(/usr/local/bin/pbrt                     )	0x0x62df9998b7da - pbrt::PrintStackTrace() + 0x3a
+(/usr/local/bin/pbrt                     )	0x0x62df9998ba76 - pbrt::CheckCallbackScope::Fail() + 0x26
+(/usr/local/bin/pbrt                     )	0x0x62df999f73c6 - pbrt::LogFatal(pbrt::LogLevel, char const*, int, char const*) + 0xf6
+(/usr/local/bin/pbrt                     )	0x0x62df99b60633 - void pbrt::LogFatal<char const (&) [19], char const (&) [2], char const (&) [19], int&, char const (&) [2], int&>(pbrt::LogLevel, char const*, int, char const*, char const (&) [19], char const (&) [2], char const (&) [19], int&, char const (&) [2], int&) + 0x73
+(/usr/local/bin/pbrt                     )	0x0x62df99b5328a - pbrt::RGBFilm::RGBFilm(pbrt::FilmBaseParameters, pbrt::RGBColorSpace const*, float, bool, pstd::pmr::polymorphic_allocator<std::byte>) + 0x63a
+(/usr/local/bin/pbrt                     )	0x0x62df99b53508 - pbrt::RGBFilm::Create(pbrt::ParameterDictionary const&, float, pbrt::Filter, pbrt::RGBColorSpace const*, pbrt::FileLoc const*, pstd::pmr::polymorphic_allocator<std::byte>) + 0x228
+(/usr/local/bin/pbrt                     )	0x0x62df99b543db - pbrt::Film::Create(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, pbrt::ParameterDictionary const&, float, pbrt::CameraTransform const&, pbrt::Filter, pbrt::FileLoc const*, pstd::pmr::polymorphic_allocator<std::byte>) + 0x7b
+(/usr/local/bin/pbrt                     )	0x0x62df998641aa - pbrt::BasicScene::SetOptions(pbrt::SceneEntity, pbrt::SceneEntity, pbrt::CameraSceneEntity, pbrt::SceneEntity, pbrt::SceneEntity, pbrt::SceneEntity) + 0x6aa
+(/usr/local/bin/pbrt                     )	0x0x62df99865465 - pbrt::BasicSceneBuilder::WorldBegin(pbrt::FileLoc) + 0x5f5
+(/usr/local/bin/pbrt                     )	0x0x62df9982c334 - pbrt::parse(pbrt::ParserTarget*, std::unique_ptr<pbrt::Tokenizer, std::default_delete<pbrt::Tokenizer> >) + 0x12a4
+(/usr/local/bin/pbrt                     )	0x0x62df9982f984 - pbrt::ParseFiles(pbrt::ParserTarget*, pstd::span<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>) + 0x124
+(/usr/local/bin/pbrt                     )	0x0x62df997f3585 - main + 0x19d5
+(/lib/x86_64-linux-gnu/libc.so.6         )	0x0x7485c5229d90 - (unknown) + 0x29d90
+(/lib/x86_64-linux-gnu/libc.so.6         )	0x0x7485c5229e40 - __libc_start_main + 0x80
+(/usr/local/bin/pbrt                     )	0x0x62df997fb895 - _start + 0x25
+
+
+studentTests/makeReferences.sh: line 30: 179517 Aborted                 (core dumped) "$PBRT" "${args[@]}" --outfile "testsuite_ref_$n.pfm" "testscene_$n.pbrt"
+pbrt exit code: 134 (scene spp, 0 s)
