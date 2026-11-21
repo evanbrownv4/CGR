@@ -80,6 +80,8 @@ Options:
 | `--threads <n>` | number of render threads (default: all cores) |
 | `--seed <n>` | random seed |
 | `--nobvh` | disable the BVH and use brute-force intersection |
+| `--ctrav <c>` | BVH SAH traversal cost relative to one primitive test (default 0.625; also `Accelerator "bvh" "float traversalcost"`) |
+| `--maxleaf <n>` | largest BVH node that may become a leaf (default 4; also `"integer maxleafprims"`) |
 | `--resolution <w> <h>` | override the film resolution |
 | `--hdr` | also write the linear radiance as `<name>.pfm` |
 | `--quiet` | print only warnings and errors |
